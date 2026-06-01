@@ -47,7 +47,7 @@ function initials(name: string) {
 }
 
 function ChatPage() {
-  const { figure } = Route.useLoaderData();
+  const { figure } = Route.useLoaderData() as { figure: Figure };
   const [messages, setMessages] = useState<Msg[]>([]);
   const [input, setInput] = useState("");
   const [isStreaming, setIsStreaming] = useState(false);
