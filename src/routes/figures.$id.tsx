@@ -2,7 +2,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
 
-import { CATEGORY_LABELS, getFigure } from "@/lib/figures";
+import { CATEGORY_LABELS, getFigure, type Figure } from "@/lib/figures";
 
 type Msg = { role: "user" | "assistant"; content: string };
 
@@ -10,7 +10,7 @@ export const Route = createFileRoute("/figures/$id")({
   loader: ({ params }) => {
     const fig = getFigure(params.id);
     if (!fig) throw notFound();
-    return { figure: fig };
+    return { figure: fig as Figure };
   },
   head: ({ loaderData }) => ({
     meta: loaderData
