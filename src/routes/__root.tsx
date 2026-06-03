@@ -11,6 +11,8 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { UserGate } from "@/components/UserGate";
+import { ProfileBadge } from "@/components/ProfileBadge";
 
 function NotFoundComponent() {
   return (
@@ -77,16 +79,15 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Interact with historical figures through an AI-powered virtual guide for immersive storytelling." },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Interact with historical figures through an AI-powered virtual guide for immersive storytelling." },
+      { title: "Smart-Sayohat: Ancients Speak" },
+      { name: "description", content: "AI virtual gid: 200+ tarixiy shaxs bilan ularning o‘z ovozida o‘zbekcha jonli suhbat, ovozli eshitish va kviz." },
+      { name: "theme-color", content: "#0a0e1f" },
+      { property: "og:title", content: "Smart-Sayohat: Ancients Speak" },
+      { property: "og:description", content: "200+ tarixiy shaxs bilan AI orqali ularning o‘z ovozida o‘zbekcha suhbat." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
-      { name: "twitter:title", content: "Lovable App" },
-      { name: "twitter:description", content: "Interact with historical figures through an AI-powered virtual guide for immersive storytelling." },
+      { name: "twitter:title", content: "Smart-Sayohat: Ancients Speak" },
+      { name: "twitter:description", content: "200+ tarixiy shaxs bilan AI suhbat." },
       { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/04e531da-e2c0-4018-9bb4-bce3f84ceffd/id-preview-bbb7b744--51ce4c15-fee6-48de-8170-6a49017a4533.lovable.app-1780316531177.png" },
       { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/04e531da-e2c0-4018-9bb4-bce3f84ceffd/id-preview-bbb7b744--51ce4c15-fee6-48de-8170-6a49017a4533.lovable.app-1780316531177.png" },
     ],
@@ -122,8 +123,13 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
+      <UserGate>
+        <div className="fixed right-4 top-4 z-50">
+          <ProfileBadge />
+        </div>
+        {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+        <Outlet />
+      </UserGate>
     </QueryClientProvider>
   );
 }

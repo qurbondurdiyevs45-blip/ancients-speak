@@ -9,10 +9,16 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as QuizRouteImport } from './routes/quiz'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as FiguresIdRouteImport } from './routes/figures.$id'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
 
+const QuizRoute = QuizRouteImport.update({
+  id: '/quiz',
+  path: '/quiz',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -31,36 +37,47 @@ const ApiChatRoute = ApiChatRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/quiz': typeof QuizRoute
   '/api/chat': typeof ApiChatRoute
   '/figures/$id': typeof FiguresIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/quiz': typeof QuizRoute
   '/api/chat': typeof ApiChatRoute
   '/figures/$id': typeof FiguresIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/quiz': typeof QuizRoute
   '/api/chat': typeof ApiChatRoute
   '/figures/$id': typeof FiguresIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/api/chat' | '/figures/$id'
+  fullPaths: '/' | '/quiz' | '/api/chat' | '/figures/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/api/chat' | '/figures/$id'
-  id: '__root__' | '/' | '/api/chat' | '/figures/$id'
+  to: '/' | '/quiz' | '/api/chat' | '/figures/$id'
+  id: '__root__' | '/' | '/quiz' | '/api/chat' | '/figures/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  QuizRoute: typeof QuizRoute
   ApiChatRoute: typeof ApiChatRoute
   FiguresIdRoute: typeof FiguresIdRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/quiz': {
+      id: '/quiz'
+      path: '/quiz'
+      fullPath: '/quiz'
+      preLoaderRoute: typeof QuizRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -87,6 +104,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  QuizRoute: QuizRoute,
   ApiChatRoute: ApiChatRoute,
   FiguresIdRoute: FiguresIdRoute,
 }
