@@ -1,7 +1,8 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 
 import { FigureCard } from "@/components/FigureCard";
+import { QuoteOfTheDay } from "@/components/QuoteOfTheDay";
 import heroImg from "@/assets/registan-hero.jpg";
 import {
   CATEGORY_LABELS,
@@ -9,20 +10,21 @@ import {
   FIGURES,
   type FigureCategory,
 } from "@/lib/figures";
+import { useUser } from "@/lib/user";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Smart-Sayohat — Tarixiy shaxslar bilan AI suhbat" },
+      { title: "Smart-Sayohat: Ancients Speak — Tarixiy shaxslar bilan AI suhbat" },
       {
         name: "description",
         content:
-          "Amir Temur, Al-Xorazmiy, Navoiy va 200+ tarixiy shaxs bilan ularning tilidan jonli AI suhbat. Sardorbek tomonidan.",
+          "Amir Temur, Al-Xorazmiy, Alisher Navoiy va 200+ tarixiy shaxs bilan ularning tilida jonli AI suhbat, ovozli eshitish va mikrofonli muloqot.",
       },
       { property: "og:title", content: "Smart-Sayohat — Virtual Gid" },
       {
         property: "og:description",
-        content: "200+ tarixiy shaxs bilan ularning ovozida suhbatlashing.",
+        content: "200+ tarixiy shaxs bilan ularning o‘z ovozida suhbatlashing.",
       },
       { property: "og:image", content: heroImg },
     ],
@@ -34,6 +36,7 @@ const ALL = "all" as const;
 type Filter = typeof ALL | FigureCategory;
 
 function Index() {
+  const { name } = useUser();
   const [q, setQ] = useState("");
   const [filter, setFilter] = useState<Filter>(ALL);
 
@@ -55,53 +58,63 @@ function Index() {
   >;
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background text-foreground">
       {/* HERO */}
-      <section className="relative isolate overflow-hidden">
+      <section className="relative isolate overflow-hidden aurora-bg">
         <img
           src={heroImg}
           alt="Registon maydoni, Samarqand"
           width={1920}
           height={1080}
-          className="absolute inset-0 -z-10 h-full w-full object-cover opacity-70"
+          className="absolute inset-0 -z-10 h-full w-full object-cover opacity-25"
         />
-        <div className="absolute inset-0 -z-10 bg-hero-gradient opacity-80" />
+        <div className="absolute inset-0 -z-10 bg-gradient-to-b from-background/40 via-background/70 to-background" />
         <div className="mx-auto max-w-6xl px-5 py-20 sm:py-28">
-          <span className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-3 py-1 text-xs font-medium text-white backdrop-blur">
-            <span className="h-1.5 w-1.5 rounded-full bg-gold" />
-            Smart-Sayohat · Virtual Gid
+          <span className="glass inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-medium text-foreground">
+            <span className="h-1.5 w-1.5 rounded-full bg-gold animate-pulse" />
+            Smart-Sayohat · Ancients Speak
           </span>
-          <h1 className="mt-5 max-w-3xl font-serif text-4xl font-bold leading-tight text-white sm:text-6xl">
-            Salom, <span className="text-gold">Sardorbek</span>.<br />
+          <h1 className="mt-5 max-w-3xl font-serif text-4xl font-bold leading-tight text-foreground sm:text-6xl">
+            Salom, <span className="text-gold">{name || "sayyoh"}</span>!<br />
             Tarixiy shaxslar bilan suhbatlashing.
           </h1>
-          <p className="mt-5 max-w-2xl text-base text-white/85 sm:text-lg">
+          <p className="mt-5 max-w-2xl text-base text-muted-foreground sm:text-lg">
             Amir Temur, Al-Xorazmiy, Mirzo Ulug‘bek va boshqa <strong>200+</strong>{" "}
-            tarixiy siymo bilan ularning o‘z tilida, o‘z davri va xarakteridan
-            kelib chiqib jonli suhbat quring.
+            tarixiy siymo bilan ularning o‘z tilida, o‘z ovozida va davri ruhida
+            jonli suhbat quring.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <a
               href="#figures"
-              className="rounded-xl bg-gold-gradient px-5 py-3 text-sm font-semibold text-foreground shadow-gold transition hover:brightness-105"
+              className="rounded-xl bg-gold-gradient px-5 py-3 text-sm font-semibold text-primary-foreground shadow-gold transition hover:brightness-110"
             >
               Shaxs tanlash →
             </a>
+            <Link
+              to="/quiz"
+              className="glass rounded-xl px-5 py-3 text-sm font-semibold text-foreground transition hover:bg-white/10"
+            >
+              ✦ Tarixiy Kviz
+            </Link>
             <a
               href="#how"
-              className="rounded-xl border border-white/30 bg-white/5 px-5 py-3 text-sm font-medium text-white backdrop-blur transition hover:bg-white/10"
+              className="rounded-xl border border-white/15 px-5 py-3 text-sm font-medium text-muted-foreground transition hover:bg-white/5 hover:text-foreground"
             >
               Qanday ishlaydi
             </a>
+          </div>
+
+          <div className="mt-12 max-w-3xl">
+            <QuoteOfTheDay />
           </div>
         </div>
       </section>
 
       {/* FEATURED */}
-      <section className="mx-auto max-w-6xl px-5 py-14">
+      <section className="mx-auto max-w-6xl px-5 py-16">
         <div className="flex items-end justify-between gap-4">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-wider text-primary">
+            <p className="text-xs font-semibold uppercase tracking-widest text-gold">
               Tavsiya etilgan
             </p>
             <h2 className="mt-1 font-serif text-2xl font-bold sm:text-3xl">
@@ -118,10 +131,10 @@ function Index() {
 
       {/* DIRECTORY */}
       <section id="figures" className="mx-auto max-w-6xl px-5 pb-20">
-        <div className="rounded-3xl border border-border bg-card p-5 sm:p-8">
+        <div className="glass rounded-3xl p-5 sm:p-8">
           <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-wider text-primary">
+              <p className="text-xs font-semibold uppercase tracking-widest text-gold">
                 Katalog · {FIGURES.length}+ shaxs
               </p>
               <h2 className="mt-1 font-serif text-2xl font-bold sm:text-3xl">
@@ -132,11 +145,11 @@ function Index() {
               value={q}
               onChange={(e) => setQ(e.target.value)}
               placeholder="Ism, kasb yoki davrni qidiring..."
-              className="w-full rounded-xl border border-border bg-background px-4 py-2.5 text-sm outline-none ring-ring transition focus:ring-2 sm:w-72"
+              className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground outline-none ring-primary transition focus:ring-2 sm:w-72"
             />
           </div>
 
-          <div className="-mx-1 mt-5 flex flex-wrap gap-2">
+          <div className="-mx-1 mt-5 flex flex-wrap gap-2.5">
             <Chip active={filter === ALL} onClick={() => setFilter(ALL)}>
               Hammasi
             </Chip>
@@ -151,7 +164,7 @@ function Index() {
             ))}
           </div>
 
-          <p className="mt-4 text-xs text-muted-foreground">
+          <p className="mt-5 text-xs text-muted-foreground">
             {filtered.length} ta shaxs topildi
           </p>
 
@@ -162,7 +175,7 @@ function Index() {
           </div>
 
           {filtered.length === 0 && (
-            <div className="mt-10 rounded-xl border border-dashed border-border p-10 text-center text-sm text-muted-foreground">
+            <div className="mt-10 rounded-xl border border-dashed border-white/15 p-10 text-center text-sm text-muted-foreground">
               Hech narsa topilmadi. Boshqa kalit so‘z bilan urinib ko‘ring.
             </div>
           )}
@@ -170,26 +183,26 @@ function Index() {
       </section>
 
       {/* HOW */}
-      <section id="how" className="bg-secondary/60 pattern-tile">
-        <div className="mx-auto grid max-w-6xl gap-8 px-5 py-16 sm:grid-cols-3">
+      <section id="how" className="relative pattern-tile">
+        <div className="mx-auto grid max-w-6xl gap-5 px-5 py-16 sm:grid-cols-3">
           {[
             ["1", "Shaxsni tanlang", "200+ siymo orasidan qiziqqaningizni toping."],
-            ["2", "Suhbatni boshlang", "AI o‘sha shaxs tilidan, o‘z davri va xarakterida javob beradi."],
-            ["3", "Tarixni his eting", "Hikoyalar, maslahatlar va savollar — barchasi jonli."],
+            ["2", "Suhbatni boshlang", "AI o‘sha shaxs tilidan, o‘z davri va xarakterida javob beradi — eshitish ham mumkin."],
+            ["3", "Tarixni his eting", "Hikoyalar, ovozli matn va kviz — barchasi bir joyda."],
           ].map(([n, title, text]) => (
-            <div key={n} className="rounded-2xl border border-border bg-card p-6">
-              <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-gold-gradient font-serif font-bold text-foreground">
+            <div key={n} className="glass rounded-2xl p-6">
+              <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-gold-gradient font-serif font-bold text-primary-foreground shadow-gold">
                 {n}
               </span>
               <h3 className="mt-4 font-serif text-lg font-semibold">{title}</h3>
-              <p className="mt-1 text-sm text-muted-foreground">{text}</p>
+              <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{text}</p>
             </div>
           ))}
         </div>
       </section>
 
-      <footer className="border-t border-border bg-background py-8 text-center text-xs text-muted-foreground">
-        Sardorbekning Smart-Sayohat loyihasi · O‘zbekiston merosi × AI
+      <footer className="border-t border-white/10 bg-background py-8 text-center text-xs text-muted-foreground">
+        Smart-Sayohat: Ancients Speak · O‘zbekiston merosi × AI
       </footer>
     </div>
   );
@@ -208,10 +221,10 @@ function Chip({
     <button
       onClick={onClick}
       className={
-        "rounded-full border px-3 py-1.5 text-xs font-medium transition " +
+        "rounded-full px-3.5 py-1.5 text-xs font-medium transition " +
         (active
-          ? "border-transparent bg-primary text-primary-foreground shadow"
-          : "border-border bg-background text-foreground hover:bg-secondary")
+          ? "bg-gold-gradient text-primary-foreground shadow-gold"
+          : "border border-white/10 bg-white/5 text-foreground hover:bg-white/10")
       }
     >
       {children}
