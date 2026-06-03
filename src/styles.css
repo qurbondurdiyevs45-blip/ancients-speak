@@ -63,33 +63,36 @@
 
 :root {
   --radius: 0.75rem;
-  /* Parchment + Samarkand teal + gold */
-  --background: oklch(0.97 0.018 80);
-  --foreground: oklch(0.22 0.04 240);
-  --card: oklch(0.99 0.012 85);
-  --card-foreground: oklch(0.22 0.04 240);
-  --popover: oklch(0.99 0.012 85);
-  --popover-foreground: oklch(0.22 0.04 240);
-  --primary: oklch(0.42 0.10 215);
-  --primary-foreground: oklch(0.98 0.015 85);
-  --secondary: oklch(0.92 0.03 80);
-  --secondary-foreground: oklch(0.28 0.05 240);
-  --muted: oklch(0.93 0.022 80);
-  --muted-foreground: oklch(0.48 0.04 240);
-  --accent: oklch(0.78 0.13 75);
-  --accent-foreground: oklch(0.22 0.05 240);
-  --destructive: oklch(0.55 0.22 27);
+  /* Deep space + gold premium dark theme */
+  --background: oklch(0.14 0.03 250);
+  --foreground: oklch(0.96 0.012 85);
+  --card: oklch(0.20 0.035 250);
+  --card-foreground: oklch(0.96 0.012 85);
+  --popover: oklch(0.18 0.035 250);
+  --popover-foreground: oklch(0.96 0.012 85);
+  --primary: oklch(0.78 0.15 75);
+  --primary-foreground: oklch(0.16 0.04 250);
+  --secondary: oklch(0.24 0.04 250);
+  --secondary-foreground: oklch(0.95 0.012 85);
+  --muted: oklch(0.24 0.035 250);
+  --muted-foreground: oklch(0.72 0.02 250);
+  --accent: oklch(0.55 0.16 220);
+  --accent-foreground: oklch(0.98 0.012 85);
+  --destructive: oklch(0.62 0.22 27);
   --destructive-foreground: oklch(0.98 0.003 247);
-  --border: oklch(0.86 0.03 80);
-  --input: oklch(0.92 0.025 80);
-  --ring: oklch(0.55 0.13 215);
-  --gold: oklch(0.78 0.15 75);
-  --teal: oklch(0.42 0.10 215);
-  --teal-deep: oklch(0.30 0.08 220);
-  --gradient-hero: linear-gradient(135deg, oklch(0.30 0.08 220) 0%, oklch(0.42 0.10 215) 50%, oklch(0.55 0.14 80) 100%);
-  --gradient-gold: linear-gradient(135deg, oklch(0.82 0.14 80), oklch(0.68 0.16 60));
-  --shadow-elegant: 0 10px 40px -12px color-mix(in oklab, oklch(0.30 0.08 220) 40%, transparent);
-  --shadow-gold: 0 8px 28px -10px color-mix(in oklab, oklch(0.78 0.15 75) 55%, transparent);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 12%);
+  --ring: oklch(0.78 0.15 75);
+  --gold: oklch(0.82 0.15 80);
+  --teal: oklch(0.55 0.14 215);
+  --teal-deep: oklch(0.28 0.06 230);
+  --gradient-hero: radial-gradient(ellipse at top, oklch(0.30 0.10 260) 0%, oklch(0.12 0.04 250) 70%);
+  --gradient-gold: linear-gradient(135deg, oklch(0.84 0.15 85), oklch(0.66 0.17 55));
+  --gradient-aurora: linear-gradient(135deg, oklch(0.55 0.16 220) 0%, oklch(0.45 0.18 290) 50%, oklch(0.78 0.15 75) 100%);
+  --shadow-elegant: 0 20px 60px -20px color-mix(in oklab, oklch(0 0 0) 70%, transparent);
+  --shadow-gold: 0 8px 32px -8px color-mix(in oklab, oklch(0.78 0.15 75) 50%, transparent);
+  --glass-bg: color-mix(in oklab, oklch(0.22 0.04 250) 55%, transparent);
+  --glass-border: color-mix(in oklab, oklch(1 0 0) 14%, transparent);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -153,15 +156,55 @@
 
   .bg-hero-gradient { background-image: var(--gradient-hero); }
   .bg-gold-gradient { background-image: var(--gradient-gold); }
+  .bg-aurora-gradient { background-image: var(--gradient-aurora); }
   .shadow-elegant { box-shadow: var(--shadow-elegant); }
   .shadow-gold { box-shadow: var(--shadow-gold); }
   .text-gold { color: var(--gold); }
   .border-gold { border-color: var(--gold); }
 
+  /* Premium glassmorphism */
+  .glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px) saturate(140%);
+    border: 1px solid var(--glass-border);
+  }
+  .glass-strong {
+    background: color-mix(in oklab, oklch(0.22 0.04 250) 75%, transparent);
+    backdrop-filter: blur(28px) saturate(160%);
+    border: 1px solid var(--glass-border);
+  }
+
   /* Subtle Islamic geometric pattern overlay */
   .pattern-tile {
     background-image:
-      radial-gradient(circle at 1px 1px, color-mix(in oklab, var(--teal) 14%, transparent) 1px, transparent 0);
+      radial-gradient(circle at 1px 1px, color-mix(in oklab, var(--gold) 18%, transparent) 1px, transparent 0);
     background-size: 24px 24px;
+  }
+
+  /* Aurora background glow */
+  .aurora-bg {
+    position: relative;
+    isolation: isolate;
+  }
+  .aurora-bg::before {
+    content: "";
+    position: absolute;
+    inset: -20%;
+    background:
+      radial-gradient(40% 30% at 20% 20%, color-mix(in oklab, var(--accent) 35%, transparent), transparent 70%),
+      radial-gradient(35% 25% at 80% 30%, color-mix(in oklab, var(--gold) 30%, transparent), transparent 70%),
+      radial-gradient(45% 35% at 50% 90%, color-mix(in oklab, oklch(0.45 0.18 290) 30%, transparent), transparent 70%);
+    filter: blur(60px);
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  @keyframes wave {
+    0%, 100% { transform: scaleY(0.4); }
+    50% { transform: scaleY(1); }
+  }
+  .wave-bar {
+    animation: wave 0.9s ease-in-out infinite;
+    transform-origin: center;
   }
 }
