@@ -3,6 +3,14 @@ import { useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
 
 import { CATEGORY_LABELS, getFigure, type Figure } from "@/lib/figures";
+import { useUser } from "@/lib/user";
+import {
+  createRecognizer,
+  isSTTAvailable,
+  isTTSAvailable,
+  speak,
+  stopSpeak,
+} from "@/lib/speech";
 
 type Msg = { role: "user" | "assistant"; content: string };
 
@@ -48,11 +56,18 @@ function initials(name: string) {
 
 function ChatPage() {
   const { figure } = Route.useLoaderData() as { figure: Figure };
+  const { name } = useUser();
+  const userName = name || "sayyoh";
   const [messages, setMessages] = useState<Msg[]>([]);
   const [input, setInput] = useState("");
   const [isStreaming, setIsStreaming] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [speakingIdx, setSpeakingIdx] = useState<number | null>(null);
+  const [listening, setListening] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const recRef = useRef<ReturnType<typeof createRecognizer>>(null);
+
+  useEffect(() => () => stopSpeak(), []);
 
   useEffect(() => {
     scrollRef.current?.scrollTo({
@@ -62,9 +77,10 @@ function ChatPage() {
   }, [messages]);
 
   const suggestions = [
-    "O'zingiz haqingizda qisqacha so'zlab bering.",
+    "O‘zingiz haqingizda qisqacha so‘zlab bering.",
     "Eng katta yutuq va sinovlaringiz nimada edi?",
     "Bugungi yoshlarga qanday maslahat berasiz?",
+    "Sevimli iborangizni ayting.",
   ];
 
   async function send(textArg?: string) {
@@ -98,7 +114,7 @@ function ChatPage() {
         body: JSON.stringify({
           figureId: figure.id,
           messages: nextMessages,
-          userName: "Sardorbek",
+          userName,
         }),
       });
 
@@ -138,35 +154,75 @@ function ChatPage() {
         }
       }
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Noma'lum xatolik");
+      setError(e instanceof Error ? e.message : "Noma’lum xatolik");
     } finally {
       setIsStreaming(false);
     }
   }
 
+  function toggleSpeak(idx: number, text: string) {
+    if (speakingIdx === idx) {
+      stopSpeak();
+      setSpeakingIdx(null);
+      return;
+    }
+    stopSpeak();
+    setSpeakingIdx(idx);
+    speak(text, () => setSpeakingIdx(null));
+  }
+
+  function toggleMic() {
+    if (listening) {
+      recRef.current?.stop();
+      setListening(false);
+      return;
+    }
+    const r = createRecognizer();
+    if (!r) {
+      setError("Brauzeringiz ovozli kiritishni qo‘llab-quvvatlamaydi.");
+      return;
+    }
+    recRef.current = r;
+    r.onresult = (e) => {
+      const t = e.results[0][0].transcript;
+      setInput((p) => (p ? p + " " + t : t));
+    };
+    r.onerror = () => setListening(false);
+    r.onend = () => setListening(false);
+    setListening(true);
+    try {
+      r.start();
+    } catch {
+      setListening(false);
+    }
+  }
+
+  const ttsOn = isTTSAvailable();
+  const sttOn = isSTTAvailable();
+
   return (
-    <div className="flex min-h-screen flex-col bg-background">
+    <div className="flex min-h-screen flex-col bg-background text-foreground">
       {/* Header */}
-      <header className="sticky top-0 z-20 border-b border-border bg-card/90 backdrop-blur">
+      <header className="sticky top-0 z-20 border-b border-white/10 bg-background/70 backdrop-blur-xl">
         <div className="mx-auto flex max-w-3xl items-center gap-3 px-4 py-3">
           <Link
             to="/"
-            className="rounded-lg border border-border bg-background px-2.5 py-1.5 text-xs font-medium hover:bg-secondary"
+            className="glass rounded-lg px-2.5 py-1.5 text-xs font-medium hover:bg-white/10"
           >
             ← Orqaga
           </Link>
           <div className="flex flex-1 items-center gap-3">
-            <div className="relative h-10 w-10 overflow-hidden rounded-full bg-gold-gradient ring-2 ring-gold/40">
+            <div className="relative h-10 w-10 overflow-hidden rounded-full bg-aurora-gradient ring-2 ring-gold/40">
               {figure.image ? (
                 <img src={figure.image} alt={figure.name} className="h-full w-full object-cover" />
               ) : (
-                <div className="flex h-full w-full items-center justify-center font-serif text-sm font-bold text-foreground">
+                <div className="flex h-full w-full items-center justify-center font-serif text-sm font-bold text-white">
                   {initials(figure.name)}
                 </div>
               )}
             </div>
             <div className="min-w-0 flex-1">
-              <p className="truncate font-serif text-sm font-semibold">{figure.name}</p>
+              <p className="truncate font-serif text-sm font-semibold text-foreground">{figure.name}</p>
               <p className="truncate text-[11px] text-muted-foreground">
                 {figure.era} · {CATEGORY_LABELS[figure.category]}
               </p>
@@ -178,11 +234,11 @@ function ChatPage() {
       {/* Messages */}
       <div ref={scrollRef} className="mx-auto flex w-full max-w-3xl flex-1 flex-col gap-4 overflow-y-auto px-4 py-6">
         {messages.length === 0 && (
-          <div className="rounded-2xl border border-border bg-card p-5 shadow-sm">
-            <p className="font-serif text-lg font-semibold">
-              Assalomu alaykum, Sardorbek.
+          <div className="glass rounded-2xl p-5 shadow-elegant">
+            <p className="font-serif text-lg font-semibold text-foreground">
+              Assalomu alaykum, {userName}.
             </p>
-            <p className="mt-1 text-sm text-muted-foreground">
+            <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
               Men — <strong>{figure.name}</strong>. {figure.bio} Menga istalgan
               savolingizni bering yoki quyidagilardan birini tanlang:
             </p>
@@ -191,7 +247,7 @@ function ChatPage() {
                 <button
                   key={s}
                   onClick={() => send(s)}
-                  className="rounded-full border border-border bg-background px-3 py-1.5 text-xs hover:bg-secondary"
+                  className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs text-foreground transition hover:border-gold/40 hover:bg-white/10"
                 >
                   {s}
                 </button>
@@ -200,31 +256,61 @@ function ChatPage() {
           </div>
         )}
 
-        {messages.map((m, i) => (
-          <div
-            key={i}
-            className={
-              "max-w-[85%] rounded-2xl px-4 py-3 text-sm leading-relaxed " +
-              (m.role === "user"
-                ? "ml-auto bg-primary text-primary-foreground"
-                : "mr-auto border border-border bg-card text-card-foreground shadow-sm")
-            }
-          >
-            {m.role === "assistant" ? (
-              <div className="prose prose-sm max-w-none prose-p:my-1 prose-strong:text-foreground">
-                <ReactMarkdown>{m.content || "…"}</ReactMarkdown>
+        {messages.map((m, i) => {
+          const time = new Date().toLocaleTimeString("uz-UZ", {
+            hour: "2-digit",
+            minute: "2-digit",
+          });
+          if (m.role === "user") {
+            return (
+              <div key={i} className="ml-auto flex max-w-[85%] flex-col items-end gap-1">
+                <div className="rounded-2xl rounded-br-md bg-gold-gradient px-4 py-2.5 text-sm leading-relaxed text-primary-foreground shadow-gold">
+                  <p className="whitespace-pre-wrap">{m.content}</p>
+                </div>
+                <span className="text-[10px] text-muted-foreground">{userName} · {time}</span>
               </div>
-            ) : (
-              <p className="whitespace-pre-wrap">{m.content}</p>
-            )}
-          </div>
-        ))}
+            );
+          }
+          const isSpeaking = speakingIdx === i;
+          return (
+            <div key={i} className="mr-auto flex max-w-[85%] flex-col gap-1">
+              <div className="glass rounded-2xl rounded-bl-md px-4 py-3 text-sm leading-relaxed text-foreground shadow-elegant">
+                <div className="prose prose-sm prose-invert max-w-none prose-p:my-1 prose-strong:text-gold">
+                  <ReactMarkdown>{m.content || "…"}</ReactMarkdown>
+                </div>
+                {ttsOn && m.content && (
+                  <div className="mt-3 flex items-center justify-between border-t border-white/10 pt-2">
+                    <button
+                      onClick={() => toggleSpeak(i, m.content)}
+                      className="flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-[11px] font-medium text-foreground transition hover:bg-white/15"
+                    >
+                      {isSpeaking ? (
+                        <>
+                          <span className="flex h-3 items-end gap-[2px]">
+                            <span className="wave-bar h-full w-[2px] bg-gold" style={{ animationDelay: "0s" }} />
+                            <span className="wave-bar h-full w-[2px] bg-gold" style={{ animationDelay: "0.15s" }} />
+                            <span className="wave-bar h-full w-[2px] bg-gold" style={{ animationDelay: "0.3s" }} />
+                            <span className="wave-bar h-full w-[2px] bg-gold" style={{ animationDelay: "0.45s" }} />
+                          </span>
+                          To‘xtatish
+                        </>
+                      ) : (
+                        <>🔊 Ovozli eshitish</>
+                      )}
+                    </button>
+                    <span className="text-[10px] text-muted-foreground">{figure.name} · {time}</span>
+                  </div>
+                )}
+              </div>
+            </div>
+          );
+        })}
 
         {isStreaming && messages[messages.length - 1]?.role === "user" && (
-          <div className="mr-auto flex items-center gap-1 rounded-2xl border border-border bg-card px-4 py-3">
-            <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-primary [animation-delay:-0.3s]" />
-            <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-primary [animation-delay:-0.15s]" />
-            <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-primary" />
+          <div className="mr-auto glass flex items-center gap-1.5 rounded-2xl px-4 py-3">
+            <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-gold [animation-delay:-0.3s]" />
+            <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-gold [animation-delay:-0.15s]" />
+            <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-gold" />
           </div>
         )}
 
@@ -236,7 +322,7 @@ function ChatPage() {
       </div>
 
       {/* Composer */}
-      <div className="sticky bottom-0 border-t border-border bg-card/90 backdrop-blur">
+      <div className="sticky bottom-0 border-t border-white/10 bg-background/80 backdrop-blur-xl">
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -244,17 +330,34 @@ function ChatPage() {
           }}
           className="mx-auto flex max-w-3xl gap-2 px-4 py-3"
         >
-          <input
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            disabled={isStreaming}
-            placeholder={`${figure.name}ga savol bering...`}
-            className="flex-1 rounded-xl border border-border bg-background px-4 py-2.5 text-sm outline-none ring-ring focus:ring-2 disabled:opacity-60"
-          />
+          <div className="glass flex flex-1 items-center gap-1.5 rounded-xl pl-3 pr-1.5">
+            <input
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              disabled={isStreaming}
+              placeholder={`${figure.name}ga savol bering...`}
+              className="flex-1 bg-transparent py-2.5 text-sm text-foreground placeholder:text-muted-foreground outline-none disabled:opacity-60"
+            />
+            {sttOn && (
+              <button
+                type="button"
+                onClick={toggleMic}
+                aria-label="Ovozli kiritish"
+                className={
+                  "flex h-8 w-8 items-center justify-center rounded-lg text-sm transition " +
+                  (listening
+                    ? "bg-destructive/80 text-destructive-foreground animate-pulse"
+                    : "bg-white/10 text-foreground hover:bg-white/15")
+                }
+              >
+                🎤
+              </button>
+            )}
+          </div>
           <button
             type="submit"
             disabled={isStreaming || !input.trim()}
-            className="rounded-xl bg-gold-gradient px-4 py-2.5 text-sm font-semibold text-foreground shadow-gold transition hover:brightness-105 disabled:cursor-not-allowed disabled:opacity-50"
+            className="rounded-xl bg-gold-gradient px-4 py-2.5 text-sm font-semibold text-primary-foreground shadow-gold transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-50"
           >
             Yuborish
           </button>
