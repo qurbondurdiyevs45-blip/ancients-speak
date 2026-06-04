@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { FigureCard } from "@/components/FigureCard";
 import { QuoteOfTheDay } from "@/components/QuoteOfTheDay";
@@ -55,9 +55,8 @@ function Index() {
   }, [q, filter]);
 
   // Reset pagination when filters change
-  useMemo(() => {
+  useEffect(() => {
     setVisible(40);
-    return null;
   }, [q, filter]);
 
   const shown = filtered.slice(0, visible);
