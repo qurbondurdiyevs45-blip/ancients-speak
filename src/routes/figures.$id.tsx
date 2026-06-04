@@ -6,11 +6,13 @@ import { CATEGORY_LABELS, getFigure, type Figure } from "@/lib/figures";
 import { useUser } from "@/lib/user";
 import {
   createRecognizer,
+  createSpeechController,
   isSTTAvailable,
   isTTSAvailable,
-  speak,
   stopSpeak,
+  type SpeechController,
 } from "@/lib/speech";
+import { FigureAvatar } from "@/components/FigureAvatar";
 
 type Msg = { role: "user" | "assistant"; content: string };
 
@@ -50,10 +52,6 @@ export const Route = createFileRoute("/figures/$id")({
   component: ChatPage,
 });
 
-function initials(name: string) {
-  return name.replace(/[‘’']/g, "").split(/\s+/).slice(0, 2).map((s) => s[0]).join("").toUpperCase();
-}
-
 function ChatPage() {
   const { figure } = Route.useLoaderData() as { figure: Figure };
   const { name } = useUser();
@@ -63,11 +61,16 @@ function ChatPage() {
   const [isStreaming, setIsStreaming] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [speakingIdx, setSpeakingIdx] = useState<number | null>(null);
+  const [playState, setPlayState] = useState<"playing" | "paused" | "stopped" | "ended">("stopped");
   const [listening, setListening] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const recRef = useRef<ReturnType<typeof createRecognizer>>(null);
+  const ctrlRef = useRef<SpeechController | null>(null);
 
-  useEffect(() => () => stopSpeak(), []);
+  useEffect(() => () => {
+    ctrlRef.current?.stop();
+    stopSpeak();
+  }, []);
 
   useEffect(() => {
     scrollRef.current?.scrollTo({
@@ -160,15 +163,29 @@ function ChatPage() {
     }
   }
 
-  function toggleSpeak(idx: number, text: string) {
-    if (speakingIdx === idx) {
-      stopSpeak();
-      setSpeakingIdx(null);
-      return;
-    }
-    stopSpeak();
+  function startSpeak(idx: number, text: string) {
+    ctrlRef.current?.stop();
+    const c = createSpeechController(text, {
+      onStateChange: setPlayState,
+      onEnd: () => {
+        setSpeakingIdx(null);
+        setPlayState("ended");
+      },
+    });
+    ctrlRef.current = c;
     setSpeakingIdx(idx);
-    speak(text, () => setSpeakingIdx(null));
+    c.play();
+  }
+  function pauseSpeak() {
+    ctrlRef.current?.pause();
+  }
+  function resumeSpeak() {
+    ctrlRef.current?.resume();
+  }
+  function stopSpeakNow() {
+    ctrlRef.current?.stop();
+    setSpeakingIdx(null);
+    setPlayState("stopped");
   }
 
   function toggleMic() {
@@ -212,13 +229,11 @@ function ChatPage() {
             ← Orqaga
           </Link>
           <div className="flex flex-1 items-center gap-3">
-            <div className="relative h-10 w-10 overflow-hidden rounded-full bg-aurora-gradient ring-2 ring-gold/40">
+            <div className="relative h-10 w-10 overflow-hidden rounded-full ring-2 ring-gold/40">
               {figure.image ? (
                 <img src={figure.image} alt={figure.name} className="h-full w-full object-cover" />
               ) : (
-                <div className="flex h-full w-full items-center justify-center font-serif text-sm font-bold text-white">
-                  {initials(figure.name)}
-                </div>
+                <FigureAvatar figure={figure} />
               )}
             </div>
             <div className="min-w-0 flex-1">
@@ -279,25 +294,50 @@ function ChatPage() {
                   <ReactMarkdown>{m.content || "…"}</ReactMarkdown>
                 </div>
                 {ttsOn && m.content && (
-                  <div className="mt-3 flex items-center justify-between border-t border-white/10 pt-2">
-                    <button
-                      onClick={() => toggleSpeak(i, m.content)}
-                      className="flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-[11px] font-medium text-foreground transition hover:bg-white/15"
-                    >
-                      {isSpeaking ? (
-                        <>
-                          <span className="flex h-3 items-end gap-[2px]">
-                            <span className="wave-bar h-full w-[2px] bg-gold" style={{ animationDelay: "0s" }} />
-                            <span className="wave-bar h-full w-[2px] bg-gold" style={{ animationDelay: "0.15s" }} />
-                            <span className="wave-bar h-full w-[2px] bg-gold" style={{ animationDelay: "0.3s" }} />
-                            <span className="wave-bar h-full w-[2px] bg-gold" style={{ animationDelay: "0.45s" }} />
-                          </span>
-                          To‘xtatish
-                        </>
-                      ) : (
-                        <>🔊 Ovozli eshitish</>
+                  <div className="mt-3 flex flex-wrap items-center justify-between gap-2 border-t border-white/10 pt-2">
+                    <div className="flex items-center gap-1.5">
+                      {!isSpeaking && (
+                        <button
+                          onClick={() => startSpeak(i, m.content)}
+                          className="flex items-center gap-1.5 rounded-full bg-gold-gradient px-3 py-1 text-[11px] font-semibold text-primary-foreground shadow-gold transition hover:brightness-110"
+                        >
+                          ▶ Eshitish
+                        </button>
                       )}
-                    </button>
+                      {isSpeaking && playState === "playing" && (
+                        <button
+                          onClick={pauseSpeak}
+                          className="flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1 text-[11px] font-semibold text-foreground transition hover:bg-white/20"
+                        >
+                          ❚❚ Pauza
+                        </button>
+                      )}
+                      {isSpeaking && playState === "paused" && (
+                        <button
+                          onClick={resumeSpeak}
+                          className="flex items-center gap-1.5 rounded-full bg-gold-gradient px-3 py-1 text-[11px] font-semibold text-primary-foreground shadow-gold"
+                        >
+                          ▶ Davom
+                        </button>
+                      )}
+                      {isSpeaking && (
+                        <button
+                          onClick={stopSpeakNow}
+                          aria-label="To‘xtatish"
+                          className="flex h-7 w-7 items-center justify-center rounded-full bg-white/10 text-[11px] text-foreground hover:bg-white/15"
+                        >
+                          ■
+                        </button>
+                      )}
+                      {isSpeaking && playState === "playing" && (
+                        <span className="ml-1 flex h-3 items-end gap-[2px]">
+                          <span className="wave-bar h-full w-[2px] bg-gold" style={{ animationDelay: "0s" }} />
+                          <span className="wave-bar h-full w-[2px] bg-gold" style={{ animationDelay: "0.15s" }} />
+                          <span className="wave-bar h-full w-[2px] bg-gold" style={{ animationDelay: "0.3s" }} />
+                          <span className="wave-bar h-full w-[2px] bg-gold" style={{ animationDelay: "0.45s" }} />
+                        </span>
+                      )}
+                    </div>
                     <span className="text-[10px] text-muted-foreground">{figure.name} · {time}</span>
                   </div>
                 )}
