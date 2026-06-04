@@ -13,6 +13,7 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { UserGate } from "@/components/UserGate";
 import { ProfileBadge } from "@/components/ProfileBadge";
+import { AlGidAssistant } from "@/components/AlGidAssistant";
 
 function NotFoundComponent() {
   return (
@@ -129,6 +130,7 @@ function RootComponent() {
         </div>
         {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
         <Outlet />
+        <AlGidAssistant />
       </UserGate>
     </QueryClientProvider>
   );

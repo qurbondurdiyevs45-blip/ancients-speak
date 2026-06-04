@@ -96,6 +96,12 @@ function Index() {
             >
               ✦ Tarixiy Kviz
             </Link>
+            <Link
+              to="/lessons"
+              className="glass rounded-xl px-5 py-3 text-sm font-semibold text-foreground transition hover:bg-white/10"
+            >
+              📖 Darslar & Mutolaa
+            </Link>
             <a
               href="#how"
               className="rounded-xl border border-white/15 px-5 py-3 text-sm font-medium text-muted-foreground transition hover:bg-white/5 hover:text-foreground"
