@@ -17,10 +17,27 @@ export function pickUzbekVoice(): SpeechSynthesisVoice | null {
   );
 }
 
+/**
+ * Preprocess Uzbek text for cleaner TTS:
+ * - strip markdown noise
+ * - normalize tutuq belgisi (o‘ → oʻ, g‘ → gʻ) which most TTS engines pronounce better
+ * - collapse whitespace
+ */
+export function cleanForSpeech(text: string): string {
+  return text
+    .replace(/```[\s\S]*?```/g, " ")
+    .replace(/`([^`]+)`/g, "$1")
+    .replace(/[#*_~>]/g, "")
+    .replace(/\[(.*?)\]\(.*?\)/g, "$1")
+    .replace(/[‘’`´ʼ]/g, "ʻ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 export function speak(text: string, onEnd?: () => void): void {
   if (!isTTSAvailable()) return;
   window.speechSynthesis.cancel();
-  const clean = text.replace(/[#*_`>~\[\]()]/g, "").slice(0, 1200);
+  const clean = cleanForSpeech(text).slice(0, 1500);
   const u = new SpeechSynthesisUtterance(clean);
   const v = pickUzbekVoice();
   if (v) u.voice = v;
@@ -36,6 +53,91 @@ export function speak(text: string, onEnd?: () => void): void {
 
 export function stopSpeak() {
   if (isTTSAvailable()) window.speechSynthesis.cancel();
+}
+
+export type SpeechController = {
+  play: () => void;
+  pause: () => void;
+  resume: () => void;
+  stop: () => void;
+  getState: () => "playing" | "paused" | "stopped" | "ended";
+};
+
+export type SpeechHandlers = {
+  onBoundary?: (charIndex: number, word: string) => void;
+  onStateChange?: (s: "playing" | "paused" | "stopped" | "ended") => void;
+  onEnd?: () => void;
+};
+
+/**
+ * Create a controllable utterance with play/pause/resume/stop and word boundary events.
+ * Falls back gracefully if speechSynthesis is unavailable.
+ */
+export function createSpeechController(
+  text: string,
+  handlers: SpeechHandlers = {},
+): SpeechController {
+  let state: "playing" | "paused" | "stopped" | "ended" = "stopped";
+  const setState = (s: typeof state) => {
+    state = s;
+    handlers.onStateChange?.(s);
+  };
+  if (!isTTSAvailable()) {
+    return {
+      play: () => handlers.onEnd?.(),
+      pause: () => {},
+      resume: () => {},
+      stop: () => {},
+      getState: () => state,
+    };
+  }
+  const clean = cleanForSpeech(text);
+  const u = new SpeechSynthesisUtterance(clean);
+  const v = pickUzbekVoice();
+  if (v) u.voice = v;
+  u.lang = v?.lang || "uz-UZ";
+  u.rate = 0.95;
+  u.pitch = 1;
+  u.onstart = () => setState("playing");
+  u.onpause = () => setState("paused");
+  u.onresume = () => setState("playing");
+  u.onend = () => {
+    setState("ended");
+    handlers.onEnd?.();
+  };
+  u.onerror = () => {
+    setState("ended");
+    handlers.onEnd?.();
+  };
+  u.onboundary = (e: SpeechSynthesisEvent) => {
+    if (e.name && e.name !== "word") return;
+    const idx = e.charIndex ?? 0;
+    const rest = clean.slice(idx);
+    const word = rest.split(/\s+/)[0] || "";
+    handlers.onBoundary?.(idx, word);
+  };
+  return {
+    play: () => {
+      window.speechSynthesis.cancel();
+      setState("playing");
+      window.speechSynthesis.speak(u);
+    },
+    pause: () => {
+      if (window.speechSynthesis.speaking) {
+        window.speechSynthesis.pause();
+        setState("paused");
+      }
+    },
+    resume: () => {
+      window.speechSynthesis.resume();
+      setState("playing");
+    },
+    stop: () => {
+      window.speechSynthesis.cancel();
+      setState("stopped");
+    },
+    getState: () => state,
+  };
 }
 
 type WindowWithSR = Window & {
