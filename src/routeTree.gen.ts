@@ -10,7 +10,9 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as QuizRouteImport } from './routes/quiz'
+import { Route as LessonsRouteImport } from './routes/lessons'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as LessonsIdRouteImport } from './routes/lessons.$id'
 import { Route as FiguresIdRouteImport } from './routes/figures.$id'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
 
@@ -19,10 +21,20 @@ const QuizRoute = QuizRouteImport.update({
   path: '/quiz',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LessonsRoute = LessonsRouteImport.update({
+  id: '/lessons',
+  path: '/lessons',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const LessonsIdRoute = LessonsIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => LessonsRoute,
 } as any)
 const FiguresIdRoute = FiguresIdRouteImport.update({
   id: '/figures/$id',
@@ -37,33 +49,53 @@ const ApiChatRoute = ApiChatRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/lessons': typeof LessonsRouteWithChildren
   '/quiz': typeof QuizRoute
   '/api/chat': typeof ApiChatRoute
   '/figures/$id': typeof FiguresIdRoute
+  '/lessons/$id': typeof LessonsIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/lessons': typeof LessonsRouteWithChildren
   '/quiz': typeof QuizRoute
   '/api/chat': typeof ApiChatRoute
   '/figures/$id': typeof FiguresIdRoute
+  '/lessons/$id': typeof LessonsIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/lessons': typeof LessonsRouteWithChildren
   '/quiz': typeof QuizRoute
   '/api/chat': typeof ApiChatRoute
   '/figures/$id': typeof FiguresIdRoute
+  '/lessons/$id': typeof LessonsIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/quiz' | '/api/chat' | '/figures/$id'
+  fullPaths:
+    | '/'
+    | '/lessons'
+    | '/quiz'
+    | '/api/chat'
+    | '/figures/$id'
+    | '/lessons/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/quiz' | '/api/chat' | '/figures/$id'
-  id: '__root__' | '/' | '/quiz' | '/api/chat' | '/figures/$id'
+  to: '/' | '/lessons' | '/quiz' | '/api/chat' | '/figures/$id' | '/lessons/$id'
+  id:
+    | '__root__'
+    | '/'
+    | '/lessons'
+    | '/quiz'
+    | '/api/chat'
+    | '/figures/$id'
+    | '/lessons/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  LessonsRoute: typeof LessonsRouteWithChildren
   QuizRoute: typeof QuizRoute
   ApiChatRoute: typeof ApiChatRoute
   FiguresIdRoute: typeof FiguresIdRoute
@@ -78,12 +110,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof QuizRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/lessons': {
+      id: '/lessons'
+      path: '/lessons'
+      fullPath: '/lessons'
+      preLoaderRoute: typeof LessonsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/lessons/$id': {
+      id: '/lessons/$id'
+      path: '/$id'
+      fullPath: '/lessons/$id'
+      preLoaderRoute: typeof LessonsIdRouteImport
+      parentRoute: typeof LessonsRoute
     }
     '/figures/$id': {
       id: '/figures/$id'
@@ -102,8 +148,20 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface LessonsRouteChildren {
+  LessonsIdRoute: typeof LessonsIdRoute
+}
+
+const LessonsRouteChildren: LessonsRouteChildren = {
+  LessonsIdRoute: LessonsIdRoute,
+}
+
+const LessonsRouteWithChildren =
+  LessonsRoute._addFileChildren(LessonsRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  LessonsRoute: LessonsRouteWithChildren,
   QuizRoute: QuizRoute,
   ApiChatRoute: ApiChatRoute,
   FiguresIdRoute: FiguresIdRoute,

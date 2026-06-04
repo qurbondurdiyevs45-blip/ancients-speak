@@ -1,16 +1,7 @@
 import { Link } from "@tanstack/react-router";
 
 import { CATEGORY_LABELS, type Figure } from "@/lib/figures";
-
-function initials(name: string) {
-  return name
-    .replace(/[‘’']/g, "")
-    .split(/\s+/)
-    .slice(0, 2)
-    .map((s) => s[0])
-    .join("")
-    .toUpperCase();
-}
+import { FigureAvatar } from "@/components/FigureAvatar";
 
 export function FigureCard({ figure }: { figure: Figure }) {
   return (
@@ -19,7 +10,7 @@ export function FigureCard({ figure }: { figure: Figure }) {
       params={{ id: figure.id }}
       className="group glass relative flex flex-col overflow-hidden rounded-2xl transition-all hover:-translate-y-1 hover:shadow-elegant hover:border-gold/40 focus:outline-none focus:ring-2 focus:ring-ring"
     >
-      <div className="relative aspect-[4/5] w-full overflow-hidden bg-aurora-gradient">
+      <div className="relative aspect-[4/5] w-full overflow-hidden">
         {figure.image ? (
           <img
             src={figure.image}
@@ -28,11 +19,7 @@ export function FigureCard({ figure }: { figure: Figure }) {
             className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
           />
         ) : (
-          <div className="flex h-full w-full items-center justify-center">
-            <span className="font-serif text-5xl font-bold text-white/90 drop-shadow-lg">
-              {initials(figure.name)}
-            </span>
-          </div>
+          <FigureAvatar figure={figure} />
         )}
         <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-3">
           <span className="inline-block rounded-full bg-white/15 px-2 py-0.5 text-[10px] font-medium text-white backdrop-blur">
