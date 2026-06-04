@@ -39,6 +39,7 @@ function Index() {
   const { name } = useUser();
   const [q, setQ] = useState("");
   const [filter, setFilter] = useState<Filter>(ALL);
+  const [visible, setVisible] = useState(40);
 
   const filtered = useMemo(() => {
     const needle = q.trim().toLowerCase();
@@ -52,6 +53,14 @@ function Index() {
       );
     });
   }, [q, filter]);
+
+  // Reset pagination when filters change
+  useMemo(() => {
+    setVisible(40);
+    return null;
+  }, [q, filter]);
+
+  const shown = filtered.slice(0, visible);
 
   const categories = Object.entries(CATEGORY_LABELS) as Array<
     [FigureCategory, string]
@@ -171,14 +180,25 @@ function Index() {
           </div>
 
           <p className="mt-5 text-xs text-muted-foreground">
-            {filtered.length} ta shaxs topildi
+            {filtered.length} ta shaxs topildi · {shown.length} ko‘rsatildi
           </p>
 
           <div className="mt-5 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-            {filtered.map((f) => (
+            {shown.map((f) => (
               <FigureCard key={f.id} figure={f} />
             ))}
           </div>
+
+          {visible < filtered.length && (
+            <div className="mt-8 flex justify-center">
+              <button
+                onClick={() => setVisible((v) => v + 40)}
+                className="glass rounded-xl px-6 py-3 text-sm font-semibold text-foreground transition hover:border-gold/40 hover:bg-white/10"
+              >
+                Yuklash · yana {Math.min(40, filtered.length - visible)} ta
+              </button>
+            </div>
+          )}
 
           {filtered.length === 0 && (
             <div className="mt-10 rounded-xl border border-dashed border-white/15 p-10 text-center text-sm text-muted-foreground">
