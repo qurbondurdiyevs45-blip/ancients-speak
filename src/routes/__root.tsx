@@ -14,6 +14,7 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { UserGate } from "@/components/UserGate";
 import { ProfileBadge } from "@/components/ProfileBadge";
 import { AlGidAssistant } from "@/components/AlGidAssistant";
+import { FIGURES } from "@/lib/figures";
 
 function NotFoundComponent() {
   return (
@@ -81,7 +82,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "Smart-Sayohat: Ancients Speak" },
-      { name: "description", content: "AI virtual gid: 200+ tarixiy shaxs bilan ularning o‘z ovozida o‘zbekcha jonli suhbat, ovozli eshitish va kviz." },
+      { name: "description", content: `AI virtual gid: ${FIGURES.length} tarixiy shaxs bilan ularning o‘z ovozida o‘zbekcha jonli suhbat, ovozli eshitish va kviz.` },
       { name: "theme-color", content: "#0a0e1f" },
       { property: "og:type", content: "website" },
       { property: "og:site_name", content: "Smart-Sayohat: Ancients Speak" },
