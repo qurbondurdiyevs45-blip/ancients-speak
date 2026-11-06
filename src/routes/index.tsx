@@ -12,22 +12,27 @@ import {
 } from "@/lib/figures";
 import { useUser } from "@/lib/user";
 
+const SHARE_IMAGE =
+  "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/04e531da-e2c0-4018-9bb4-bce3f84ceffd/id-preview-bbb7b744--51ce4c15-fee6-48de-8170-6a49017a4533.lovable.app-1780316531177.png";
+
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Smart-Sayohat: Ancients Speak — Tarixiy shaxslar bilan AI suhbat" },
       {
         name: "description",
-        content:
-          "Amir Temur, Al-Xorazmiy, Alisher Navoiy va 200+ tarixiy shaxs bilan ularning tilida jonli AI suhbat, ovozli eshitish va mikrofonli muloqot.",
+        content: `Amir Temur, Al-Xorazmiy, Alisher Navoiy va yana ${FIGURES.length} tarixiy shaxs bilan ularning tilida jonli AI suhbat, ovozli eshitish va mikrofonli muloqot.`,
       },
-      { property: "og:title", content: "Smart-Sayohat — Virtual Gid" },
+      { property: "og:title", content: "Smart-Sayohat: Ancients Speak — Virtual Gid" },
       {
         property: "og:description",
-        content: "200+ tarixiy shaxs bilan ularning o‘z ovozida suhbatlashing.",
+        content: `${FIGURES.length} tarixiy shaxs bilan ularning o‘z ovozida suhbatlashing.`,
       },
-      { property: "og:image", content: heroImg },
+      { property: "og:url", content: "https://ancients-speak.lovable.app/" },
+      { property: "og:image", content: SHARE_IMAGE },
+      { name: "twitter:image", content: SHARE_IMAGE },
     ],
+    links: [{ rel: "canonical", href: "https://ancients-speak.lovable.app/" }],
   }),
   component: Index,
 });
@@ -87,7 +92,7 @@ function Index() {
             Tarixiy shaxslar bilan suhbatlashing.
           </h1>
           <p className="mt-5 max-w-2xl text-base text-muted-foreground sm:text-lg">
-            Amir Temur, Al-Xorazmiy, Mirzo Ulug‘bek va boshqa <strong>200+</strong>{" "}
+            Amir Temur, Al-Xorazmiy, Mirzo Ulug‘bek va boshqa <strong>{FIGURES.length}</strong>{" "}
             tarixiy siymo bilan ularning o‘z tilida, o‘z ovozida va davri ruhida
             jonli suhbat quring.
           </p>
@@ -149,7 +154,7 @@ function Index() {
           <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <p className="text-xs font-semibold uppercase tracking-widest text-gold">
-                Katalog · {FIGURES.length}+ shaxs
+                Katalog · {FIGURES.length} shaxs
               </p>
               <h2 className="mt-1 font-serif text-2xl font-bold sm:text-3xl">
                 Barcha tarixiy siymolar
@@ -211,7 +216,7 @@ function Index() {
       <section id="how" className="relative pattern-tile">
         <div className="mx-auto grid max-w-6xl gap-5 px-5 py-16 sm:grid-cols-3">
           {[
-            ["1", "Shaxsni tanlang", "200+ siymo orasidan qiziqqaningizni toping."],
+            ["1", "Shaxsni tanlang", `${FIGURES.length} siymo orasidan qiziqqaningizni toping.`],
             ["2", "Suhbatni boshlang", "AI o‘sha shaxs tilidan, o‘z davri va xarakterida javob beradi — eshitish ham mumkin."],
             ["3", "Tarixni his eting", "Hikoyalar, ovozli matn va kviz — barchasi bir joyda."],
           ].map(([n, title, text]) => (

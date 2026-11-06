@@ -13,6 +13,7 @@ import { Route as QuizRouteImport } from './routes/quiz'
 import { Route as LessonsRouteImport } from './routes/lessons'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as LessonsIdRouteImport } from './routes/lessons.$id'
+import { Route as FiguresUlugNamanganiRouteImport } from './routes/figures.ulug-namangani'
 import { Route as FiguresIdRouteImport } from './routes/figures.$id'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
 
@@ -36,6 +37,11 @@ const LessonsIdRoute = LessonsIdRouteImport.update({
   path: '/$id',
   getParentRoute: () => LessonsRoute,
 } as any)
+const FiguresUlugNamanganiRoute = FiguresUlugNamanganiRouteImport.update({
+  id: '/figures/ulug-namangani',
+  path: '/figures/ulug-namangani',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const FiguresIdRoute = FiguresIdRouteImport.update({
   id: '/figures/$id',
   path: '/figures/$id',
@@ -53,6 +59,7 @@ export interface FileRoutesByFullPath {
   '/quiz': typeof QuizRoute
   '/api/chat': typeof ApiChatRoute
   '/figures/$id': typeof FiguresIdRoute
+  '/figures/ulug-namangani': typeof FiguresUlugNamanganiRoute
   '/lessons/$id': typeof LessonsIdRoute
 }
 export interface FileRoutesByTo {
@@ -61,6 +68,7 @@ export interface FileRoutesByTo {
   '/quiz': typeof QuizRoute
   '/api/chat': typeof ApiChatRoute
   '/figures/$id': typeof FiguresIdRoute
+  '/figures/ulug-namangani': typeof FiguresUlugNamanganiRoute
   '/lessons/$id': typeof LessonsIdRoute
 }
 export interface FileRoutesById {
@@ -70,6 +78,7 @@ export interface FileRoutesById {
   '/quiz': typeof QuizRoute
   '/api/chat': typeof ApiChatRoute
   '/figures/$id': typeof FiguresIdRoute
+  '/figures/ulug-namangani': typeof FiguresUlugNamanganiRoute
   '/lessons/$id': typeof LessonsIdRoute
 }
 export interface FileRouteTypes {
@@ -80,9 +89,17 @@ export interface FileRouteTypes {
     | '/quiz'
     | '/api/chat'
     | '/figures/$id'
+    | '/figures/ulug-namangani'
     | '/lessons/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/lessons' | '/quiz' | '/api/chat' | '/figures/$id' | '/lessons/$id'
+  to:
+    | '/'
+    | '/lessons'
+    | '/quiz'
+    | '/api/chat'
+    | '/figures/$id'
+    | '/figures/ulug-namangani'
+    | '/lessons/$id'
   id:
     | '__root__'
     | '/'
@@ -90,6 +107,7 @@ export interface FileRouteTypes {
     | '/quiz'
     | '/api/chat'
     | '/figures/$id'
+    | '/figures/ulug-namangani'
     | '/lessons/$id'
   fileRoutesById: FileRoutesById
 }
@@ -99,6 +117,7 @@ export interface RootRouteChildren {
   QuizRoute: typeof QuizRoute
   ApiChatRoute: typeof ApiChatRoute
   FiguresIdRoute: typeof FiguresIdRoute
+  FiguresUlugNamanganiRoute: typeof FiguresUlugNamanganiRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -130,6 +149,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/lessons/$id'
       preLoaderRoute: typeof LessonsIdRouteImport
       parentRoute: typeof LessonsRoute
+    }
+    '/figures/ulug-namangani': {
+      id: '/figures/ulug-namangani'
+      path: '/figures/ulug-namangani'
+      fullPath: '/figures/ulug-namangani'
+      preLoaderRoute: typeof FiguresUlugNamanganiRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/figures/$id': {
       id: '/figures/$id'
@@ -165,6 +191,7 @@ const rootRouteChildren: RootRouteChildren = {
   QuizRoute: QuizRoute,
   ApiChatRoute: ApiChatRoute,
   FiguresIdRoute: FiguresIdRoute,
+  FiguresUlugNamanganiRoute: FiguresUlugNamanganiRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

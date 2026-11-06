@@ -12,7 +12,8 @@ import {
   stopSpeak,
   type SpeechController,
 } from "@/lib/speech";
-import { FigureAvatar } from "@/components/FigureAvatar";
+import { FigureImage } from "@/components/FigureImage";
+import { getPortrait } from "@/lib/portraits";
 
 type Msg = { role: "user" | "assistant"; content: string };
 
@@ -54,6 +55,7 @@ export const Route = createFileRoute("/figures/$id")({
 
 function ChatPage() {
   const { figure } = Route.useLoaderData() as { figure: Figure };
+  const portrait = getPortrait(figure.id);
   const { name } = useUser();
   const userName = name || "sayyoh";
   const [messages, setMessages] = useState<Msg[]>([]);
@@ -230,11 +232,7 @@ function ChatPage() {
           </Link>
           <div className="flex flex-1 items-center gap-3">
             <div className="relative h-10 w-10 overflow-hidden rounded-full ring-2 ring-gold/40">
-              {figure.image ? (
-                <img src={figure.image} alt={figure.name} className="h-full w-full object-cover" />
-              ) : (
-                <FigureAvatar figure={figure} />
-              )}
+              <FigureImage figure={figure} />
             </div>
             <div className="min-w-0 flex-1">
               <p className="truncate font-serif text-sm font-semibold text-foreground">{figure.name}</p>
@@ -268,6 +266,28 @@ function ChatPage() {
                 </button>
               ))}
             </div>
+            {portrait && (
+              <p className="mt-4 border-t border-white/10 pt-3 text-[10px] leading-relaxed text-muted-foreground">
+                Portret manbasi:{" "}
+                <a
+                  href={portrait.file}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline decoration-dotted hover:text-gold"
+                >
+                  Wikimedia Commons
+                </a>{" "}
+                (erkin litsenziya) ·{" "}
+                <a
+                  href={portrait.article}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline decoration-dotted hover:text-gold"
+                >
+                  Vikipediya maqolasi
+                </a>
+              </p>
+            )}
           </div>
         )}
 

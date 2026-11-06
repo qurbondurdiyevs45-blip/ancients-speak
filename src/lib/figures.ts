@@ -12,7 +12,8 @@ export type FigureCategory =
   | "inventor"
   | "modern"
   | "explorer"
-  | "spiritual";
+  | "spiritual"
+  | "jadid";
 
 export const CATEGORY_LABELS: Record<FigureCategory, string> = {
   uzbek: "O‘zbek / Markaziy Osiyo",
@@ -25,6 +26,7 @@ export const CATEGORY_LABELS: Record<FigureCategory, string> = {
   modern: "Zamonaviy",
   explorer: "Sayyoh & Kashfiyotchi",
   spiritual: "Ma’naviyat",
+  jadid: "Ma’rifatparvarlar (Jadidlar)",
 };
 
 export type Figure = {
@@ -136,13 +138,13 @@ export const FIGURES: Figure[] = [
     "writer", "milliy, jiddiy"),
   f("munavvar-qori", "Munavvar Qori Abdurashidxonov", "1878–1931", "Jadid",
     "Yangi usul maktablari asoschisi.",
-    "modern", "ma’rifatchi, izlanuvchan"),
+    "jadid", "ma’rifatchi, izlanuvchan"),
   f("behbudiy", "Mahmudxo‘ja Behbudiy", "1875–1919", "Jadid",
     "“Padarkush” dramasi muallifi.",
-    "modern", "ma’rifatchi, kuyunchak"),
-  f("ulug-namangani", "Hamza Hakimzoda Niyoziy", "1889–1929", "Shoir",
+    "jadid", "ma’rifatchi, kuyunchak"),
+  f("hamza", "Hamza Hakimzoda Niyoziy", "1889–1929", "Shoir",
     "Yangi davr o‘zbek dramaturgiyasi asoschisi.",
-    "writer", "kurashchan, xalqchil"),
+    "jadid", "kurashchan, xalqchil"),
   f("usmon-nosir", "Usmon Nosir", "1912–1944", "Shoir",
     "Yosh romantik shoir.",
     "writer", "ehtirosli, isyonkor"),
