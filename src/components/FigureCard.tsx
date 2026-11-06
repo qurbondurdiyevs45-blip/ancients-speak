@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 
 import { CATEGORY_LABELS, type Figure } from "@/lib/figures";
-import { FigureAvatar } from "@/components/FigureAvatar";
+import { FigureImage } from "@/components/FigureImage";
 
 export function FigureCard({ figure }: { figure: Figure }) {
   return (
@@ -11,16 +11,7 @@ export function FigureCard({ figure }: { figure: Figure }) {
       className="group glass relative flex flex-col overflow-hidden rounded-2xl transition-all hover:-translate-y-1 hover:shadow-elegant hover:border-gold/40 focus:outline-none focus:ring-2 focus:ring-ring"
     >
       <div className="relative aspect-[4/5] w-full overflow-hidden">
-        {figure.image ? (
-          <img
-            src={figure.image}
-            alt={figure.name}
-            loading="lazy"
-            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-          />
-        ) : (
-          <FigureAvatar figure={figure} />
-        )}
+        <FigureImage figure={figure} />
         <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-3">
           <span className="inline-block rounded-full bg-white/15 px-2 py-0.5 text-[10px] font-medium text-white backdrop-blur">
             {CATEGORY_LABELS[figure.category]}

@@ -10,8 +10,12 @@ export const Route = createFileRoute("/quiz")({
       { title: "Tarixiy Kviz — Smart-Sayohat: Ancients Speak" },
       {
         name: "description",
-        content:
-          "Amir Temur, Al-Xorazmiy, Navoiy va 200+ tarixiy shaxs haqida bilimingizni sinab ko‘ring. Ball to‘plang.",
+        content: `Amir Temur, Al-Xorazmiy, Navoiy va yana ${FIGURES.length} tarixiy shaxs haqida bilimingizni sinab ko‘ring. Ball to‘plang.`,
+      },
+      { property: "og:title", content: "Tarixiy Kviz — Smart-Sayohat" },
+      {
+        property: "og:description",
+        content: "Tarixiy shaxslar haqidagi bilimingizni sinang va ball to‘plang.",
       },
     ],
   }),
