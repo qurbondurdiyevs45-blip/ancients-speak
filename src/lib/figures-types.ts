@@ -8,7 +8,8 @@ export type FigureCategory =
   | "inventor"
   | "modern"
   | "explorer"
-  | "spiritual";
+  | "spiritual"
+  | "jadid";
 
 export type Figure = {
   id: string;
