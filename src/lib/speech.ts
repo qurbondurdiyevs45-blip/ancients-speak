@@ -165,7 +165,8 @@ export function isSTTAvailable() {
 export function createRecognizer(): SpeechRecognitionLike | null {
   if (!isSTTAvailable()) return null;
   const w = window as WindowWithSR;
-  const Ctor = w.webkitSpeechRecognition || w.SpeechRecognition!;
+  const Ctor = w.webkitSpeechRecognition || w.SpeechRecognition;
+  if (!Ctor) return null;
   const r = new Ctor();
   r.lang = "uz-UZ";
   r.continuous = false;

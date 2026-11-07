@@ -1,6 +1,8 @@
 import { useEffect, useState, type ReactNode } from "react";
 
 import { setUserName, useUser } from "@/lib/user";
+import { validName } from "@/lib/education-rules";
+import { Button } from "@/components/ui/button";
 
 export function UserGate({ children }: { children: ReactNode }) {
   const { name } = useUser();
@@ -16,7 +18,7 @@ export function UserGate({ children }: { children: ReactNode }) {
   function submit(e: React.FormEvent) {
     e.preventDefault();
     const v = value.trim();
-    if (v.length < 2) return;
+    if (!validName(v)) return;
     setUserName(v);
   }
 
@@ -43,7 +45,7 @@ export function UserGate({ children }: { children: ReactNode }) {
               </div>
             </div>
             <h3 className="font-serif text-2xl font-bold text-foreground">
-              Xush kelibsiz, sayyoh.
+              Ismingizni kiriting
             </h3>
             <p className="mt-2 text-sm text-muted-foreground">
               Tarixiy shaxslar sizni shaxsan tanishi uchun ismingizni kiriting.
@@ -57,17 +59,20 @@ export function UserGate({ children }: { children: ReactNode }) {
                 value={value}
                 onChange={(e) => setValue(e.target.value)}
                 placeholder="Masalan, Sardorbek"
-                maxLength={32}
+                maxLength={40}
+                aria-invalid={value.length > 0 && !validName(value)}
+                aria-describedby="name-rule"
                 className="mt-2 w-full rounded-xl border border-white/15 bg-white/5 px-4 py-3 text-base text-foreground outline-none ring-primary transition focus:ring-2"
               />
             </label>
-            <button
+            <p id="name-rule" className="mt-2 text-xs text-muted-foreground">Faqat harflar, 2–40 belgi.</p>
+            <Button
               type="submit"
-              disabled={value.trim().length < 2}
+              disabled={!validName(value)}
               className="mt-6 w-full rounded-xl bg-gold-gradient px-5 py-3 text-sm font-semibold text-primary-foreground shadow-gold transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-50"
             >
               Sayohatni boshlash →
-            </button>
+            </Button>
             <p className="mt-4 text-center text-[11px] text-muted-foreground">
               Ma’lumotlaringiz faqat shu brauzerda saqlanadi.
             </p>
