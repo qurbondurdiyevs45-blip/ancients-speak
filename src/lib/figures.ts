@@ -1,6 +1,7 @@
 import amirTemur from "@/assets/amir-temur.jpg";
 import alKhwarizmi from "@/assets/al-khwarizmi.jpg";
 import ulugbek from "@/assets/ulugbek.jpg";
+import { ADDITIONAL_FIGURES } from "./figures-additions";
 
 export type FigureCategory =
   | "uzbek"
@@ -16,15 +17,15 @@ export type FigureCategory =
   | "jadid";
 
 export const CATEGORY_LABELS: Record<FigureCategory, string> = {
-  uzbek: "O‘zbek / Markaziy Osiyo",
+  uzbek: "O‘zbekiston / Markaziy Osiyo",
   science: "Ilm-fan",
   philosophy: "Falsafa",
   ruler: "Hukmdorlar",
-  writer: "Yozuvchi & Shoir",
-  artist: "San’atkor",
-  inventor: "Ixtirochi",
-  modern: "Zamonaviy",
-  explorer: "Sayyoh & Kashfiyotchi",
+  writer: "Adabiyot",
+  artist: "San’at",
+  inventor: "Ixtirochilar",
+  modern: "Jahon tarixi",
+  explorer: "Sayyoh va kashfiyotchilar",
   spiritual: "Ma’naviyat",
   jadid: "Ma’rifatparvarlar (Jadidlar)",
 };
@@ -53,7 +54,7 @@ const f = (
 ): Figure => ({ id, name, era, role, bio, category, voiceHint, ...extra });
 
 export const FIGURES: Figure[] = [
-  // ====== FEATURED — O‘zbek / Markaziy Osiyo ======
+  // ====== FEATURED — O‘zbekiston / Markaziy Osiyo ======
   f("amir-temur", "Amir Temur", "1336–1405", "Sohibqiron, davlat arbobi",
     "Temuriylar saltanati asoschisi. Samarqandni jahon poytaxtiga aylantirgan.",
     "uzbek", "amrkorona, dono, strategik, qudratli",
@@ -225,10 +226,10 @@ export const FIGURES: Figure[] = [
   f("darwin", "Charlz Darvin", "1809–1882", "Tabiatshunos",
     "Evolyutsiya nazariyasi muallifi.",
     "science", "sabrli, kuzatuvchan"),
-  f("tesla", "Nikola Tesla", "1856–1943", "Ixtirochi",
+  f("tesla", "Nikola Tesla", "1856–1943", "Ixtirochilar",
     "O‘zgaruvchan tok va ko‘plab ixtirolar muallifi.",
     "inventor", "ehtirosli, kelajakparvar"),
-  f("edison", "Tomas Edison", "1847–1931", "Ixtirochi",
+  f("edison", "Tomas Edison", "1847–1931", "Ixtirochilar",
     "1000+ patentga ega ixtirochi.",
     "inventor", "amaliy, mehnatsevar"),
   f("curie", "Mariya Kyuri", "1867–1934", "Fizik, kimyogar",
@@ -545,13 +546,13 @@ export const FIGURES: Figure[] = [
     "artist", "lirik, romantik"),
 
   // ====== Ixtirochi / texnologlar ======
-  f("gutenberg", "Iogann Gutenberg", "1400–1468", "Ixtirochi",
+  f("gutenberg", "Iogann Gutenberg", "1400–1468", "Ixtirochilar",
     "Bosma stanok ixtirochisi.",
     "inventor", "amaliy, vazmin"),
-  f("wright", "Aka-uka Raytlar", "1867–1948", "Ixtirochi",
+  f("wright", "Aka-uka Raytlar", "1867–1948", "Ixtirochilar",
     "Birinchi samolyot quruvchisi.",
     "inventor", "muhandis, jasur"),
-  f("bell", "Aleksandr Bell", "1847–1922", "Ixtirochi",
+  f("bell", "Aleksandr Bell", "1847–1922", "Ixtirochilar",
     "Telefon ixtirochisi.",
     "inventor", "tahliliy, izlanuvchan"),
   f("ford", "Genri Ford", "1863–1947", "Sanoatchi",
@@ -590,7 +591,7 @@ export const FIGURES: Figure[] = [
   f("hopper", "Greys Xopper", "1906–1992", "Olim",
     "COBOL tilining otasi.",
     "science", "amaliy, sho‘x"),
-  f("lovelace-ii", "Tim Berners-Li", "1955–", "Ixtirochi",
+  f("lovelace-ii", "Tim Berners-Li", "1955–", "Ixtirochilar",
     "World Wide Web ixtirochisi.",
     "modern", "ochiq, ilmiy"),
   f("ritchie", "Dennis Ritchi", "1941–2011", "Olim",
@@ -740,7 +741,7 @@ export const FIGURES: Figure[] = [
   f("franklin", "Benjamin Franklin", "1706–1790", "Polimat",
     "AQSh asoschisi.",
     "modern", "amaliy, hazil"),
-  f("alfred-nobel", "Alfred Nobel", "1833–1896", "Ixtirochi",
+  f("alfred-nobel", "Alfred Nobel", "1833–1896", "Ixtirochilar",
     "Dinamit ixtirochisi, Nobel mukofoti muassisi.",
     "inventor", "tinchlikparvar, izlanuvchan"),
   f("carnegie", "Endryu Karnegi", "1835–1919", "Sanoatchi",
@@ -773,6 +774,7 @@ export const FIGURES: Figure[] = [
   f("nightingale", "Florens Naytingeyl", "1820–1910", "Hamshira",
     "Zamonaviy hamshiralik asoschisi.",
     "modern", "rahmdil, intizomli"),
+  ...ADDITIONAL_FIGURES,
 ];
 
 export function getFigure(id: string): Figure | undefined {

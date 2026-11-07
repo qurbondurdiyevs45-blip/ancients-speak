@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { getPortrait } from "@/lib/portraits";
 import { FigureAvatar } from "@/components/FigureAvatar";
@@ -17,10 +17,16 @@ export function FigureImage({
   className?: string;
 }) {
   const src = figure.image ?? getPortrait(figure.id)?.src;
-  const [failed, setFailed] = useState(false);
-  const [loaded, setLoaded] = useState(false);
+  const [failedSrc, setFailedSrc] = useState<string | null>(null);
+  const [loadedSrc, setLoadedSrc] = useState<string | null>(null);
+  useEffect(() => {
+    if (!src || src === loadedSrc) return;
+    const timer = setTimeout(() => setFailedSrc(src), 8000);
+    return () => clearTimeout(timer);
+  }, [src, loadedSrc]);
+  const loaded = loadedSrc === src;
 
-  if (!src || failed) {
+  if (!src || failedSrc === src) {
     return <FigureAvatar figure={figure} className={className} />;
   }
 
@@ -33,8 +39,8 @@ export function FigureImage({
         src={src}
         alt={figure.name}
         loading="lazy"
-        onLoad={() => setLoaded(true)}
-        onError={() => setFailed(true)}
+        onLoad={() => setLoadedSrc(src)}
+        onError={() => setFailedSrc(src)}
         className={
           "h-full w-full object-cover transition-all duration-700 group-hover:scale-105 " +
           (loaded ? "opacity-100" : "opacity-0")

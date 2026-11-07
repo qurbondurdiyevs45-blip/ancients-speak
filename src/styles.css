@@ -1,6 +1,6 @@
 @import "tailwindcss" source(none);
-@source "../src";
 @import "tw-animate-css";
+@source "../src";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -46,6 +46,9 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
   --color-ring-offset-background: var(--background);
+  --color-gold: var(--gold);
+  --color-neon: var(--neon);
+  --color-success: var(--success);
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
   --color-chart-3: var(--chart-3);
@@ -84,6 +87,9 @@
   --input: oklch(1 0 0 / 12%);
   --ring: oklch(0.78 0.15 75);
   --gold: oklch(0.82 0.15 80);
+  --success: oklch(0.78 0.16 155);
+  --badge-base: oklch(0.25 0.065 215);
+  --badge-accent: oklch(0.82 0.13 195);
   --teal: oklch(0.55 0.14 215);
   --teal-deep: oklch(0.28 0.06 230);
   --gradient-hero: radial-gradient(ellipse at top, oklch(0.30 0.10 260) 0%, oklch(0.12 0.04 250) 70%);
@@ -190,11 +196,7 @@
     content: "";
     position: absolute;
     inset: -20%;
-    background:
-      radial-gradient(40% 30% at 20% 20%, color-mix(in oklab, var(--accent) 35%, transparent), transparent 70%),
-      radial-gradient(35% 25% at 80% 30%, color-mix(in oklab, var(--gold) 30%, transparent), transparent 70%),
-      radial-gradient(45% 35% at 50% 90%, color-mix(in oklab, oklch(0.45 0.18 290) 30%, transparent), transparent 70%);
-    filter: blur(60px);
+    background: transparent;
     z-index: -1;
     pointer-events: none;
   }
@@ -212,7 +214,7 @@
 @layer base {
   :root {
     --neon: oklch(0.78 0.16 200);
-    --neon-2: oklch(0.66 0.20 285);
+    --neon-2: oklch(0.66 0.16 245);
   }
   .text-neon { color: var(--neon); }
   .bg-neon-gradient { background-image: linear-gradient(135deg, var(--neon), var(--neon-2)); }
@@ -246,4 +248,34 @@
     background-size: 200% 100%;
     animation: shimmer-x 2.2s linear infinite;
   }
+}
+
+.smart-badge .badge-base { fill: var(--badge-base); }
+.smart-badge .badge-pattern { stroke: var(--badge-accent); opacity: .4; }
+.smart-badge .badge-medallion { fill: var(--badge-base); stroke: var(--badge-accent); stroke-width: 2; }
+.smart-badge .badge-initials { fill: var(--foreground); }
+.badge-uzbek, .badge-ruler { --badge-base: oklch(.28 .07 80); --badge-accent: var(--gold); }
+.badge-writer, .badge-philosophy { --badge-base: oklch(.28 .07 335); --badge-accent: oklch(.82 .10 335); }
+.badge-spiritual, .badge-jadid { --badge-base: oklch(.27 .06 155); --badge-accent: oklch(.80 .12 155); }
+.badge-artist, .badge-explorer { --badge-base: oklch(.29 .07 30); --badge-accent: oklch(.82 .10 30); }
+.figure-card:hover { box-shadow: 0 8px 28px color-mix(in oklab, var(--neon) 16%, transparent); }
+button, a[role="button"], select { min-height: 44px; }
+button { min-width: 44px; }
+:focus-visible { outline: 2px solid var(--ring); outline-offset: 3px; }
+button, input, a, h1, h2, h3, p { letter-spacing: 0; }
+input { min-width: 0; }
+.light {
+  --background: oklch(.98 .005 220); --foreground: oklch(.20 .035 240);
+  --card: oklch(.95 .015 220); --secondary: oklch(.90 .02 220);
+  --muted-foreground: oklch(.42 .03 240); --gold: oklch(.48 .10 75);
+  --primary: oklch(.48 .10 75); --primary-foreground: oklch(.98 .005 220);
+  --glass-bg: oklch(.96 .01 220 / .92); --glass-border: oklch(.45 .04 220 / .3);
+  --border: oklch(.35 .025 220 / .25); --neon: oklch(.45 .1 200);
+}
+.light .glass-strong { background: var(--glass-bg); }
+.high-contrast { --foreground: oklch(1 0 0); --muted-foreground: oklch(.92 0 0); --glass-border: oklch(.8 0 0); }
+.light.high-contrast { --foreground: oklch(.1 0 0); --muted-foreground: oklch(.22 0 0); --glass-border: oklch(.2 0 0); }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  .figure-card:hover { transform: none; }
 }

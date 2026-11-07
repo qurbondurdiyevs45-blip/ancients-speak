@@ -11,9 +11,9 @@ import {
   type FigureCategory,
 } from "@/lib/figures";
 import { useUser } from "@/lib/user";
-
-const SHARE_IMAGE =
-  "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/04e531da-e2c0-4018-9bb4-bce3f84ceffd/id-preview-bbb7b744--51ce4c15-fee6-48de-8170-6a49017a4533.lovable.app-1780316531177.png";
+import { Button } from "@/components/ui/button";
+import { matchesPeriod, type Period } from "@/lib/education-rules";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -29,8 +29,8 @@ export const Route = createFileRoute("/")({
         content: `${FIGURES.length} tarixiy shaxs bilan ularning o‘z ovozida suhbatlashing.`,
       },
       { property: "og:url", content: "https://ancients-speak.lovable.app/" },
-      { property: "og:image", content: SHARE_IMAGE },
-      { name: "twitter:image", content: SHARE_IMAGE },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [{ rel: "canonical", href: "https://ancients-speak.lovable.app/" }],
   }),
@@ -45,11 +45,16 @@ function Index() {
   const [q, setQ] = useState("");
   const [filter, setFilter] = useState<Filter>(ALL);
   const [visible, setVisible] = useState(40);
+  const [period, setPeriod] = useState<Period>("all");
+  const reduced = useReducedMotion();
+  const { scrollY } = useScroll();
+  const heroY = useTransform(scrollY, [0, 700], [0, 100]);
 
   const filtered = useMemo(() => {
     const needle = q.trim().toLowerCase();
     return FIGURES.filter((f) => {
       if (filter !== ALL && f.category !== filter) return false;
+      if (!matchesPeriod(f.era, period)) return false;
       if (!needle) return true;
       return (
         f.name.toLowerCase().includes(needle) ||
@@ -57,12 +62,12 @@ function Index() {
         f.bio.toLowerCase().includes(needle)
       );
     });
-  }, [q, filter]);
+  }, [q, filter, period]);
 
   // Reset pagination when filters change
   useEffect(() => {
     setVisible(40);
-  }, [q, filter]);
+  }, [q, filter, period]);
 
   const shown = filtered.slice(0, visible);
 
@@ -74,15 +79,16 @@ function Index() {
     <div className="min-h-screen bg-background text-foreground">
       {/* HERO */}
       <section className="relative isolate overflow-hidden aurora-bg">
-        <img
+        <motion.img
           src={heroImg}
           alt="Registon maydoni, Samarqand"
           width={1920}
           height={1080}
-          className="absolute inset-0 -z-10 h-full w-full object-cover opacity-25"
+          style={reduced ? undefined : { y: heroY }}
+          className="absolute inset-0 -z-10 h-full w-full object-cover opacity-40"
         />
         <div className="absolute inset-0 -z-10 bg-gradient-to-b from-background/40 via-background/70 to-background" />
-        <div className="mx-auto max-w-6xl px-5 py-20 sm:py-28">
+        <div className="mx-auto max-w-6xl px-5 pb-10 pt-20 sm:pb-14 sm:pt-24 animate-fade-up">
           <span className="glass inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-medium text-foreground">
             <span className="h-1.5 w-1.5 rounded-full bg-gold animate-pulse" />
             Smart-Sayohat · Ancients Speak
@@ -113,7 +119,7 @@ function Index() {
               to="/lessons"
               className="glass rounded-xl px-5 py-3 text-sm font-semibold text-foreground transition hover:bg-white/10"
             >
-              📖 Darslar & Mutolaa
+              📖 Darslar va Mutolaa
             </Link>
             <a
               href="#how"
@@ -150,7 +156,7 @@ function Index() {
 
       {/* DIRECTORY */}
       <section id="figures" className="mx-auto max-w-6xl px-5 pb-20">
-        <div className="glass rounded-3xl p-5 sm:p-8">
+        <div className="border-t border-border pt-8">
           <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <p className="text-xs font-semibold uppercase tracking-widest text-gold">
@@ -160,12 +166,17 @@ function Index() {
                 Barcha tarixiy siymolar
               </h2>
             </div>
-            <input
+            <div className="flex flex-col gap-2 sm:flex-row">
+            <select aria-label="Davr" value={period} onChange={(e) => setPeriod(e.target.value as Period)} className="rounded-lg border border-border bg-secondary px-3 text-sm">
+              <option value="all">Barcha davrlar</option><option value="ancient">Qadimgi dunyo</option><option value="medieval">O‘rta asrlar</option><option value="early-modern">1500–1799</option><option value="modern">1800-yildan keyin</option>
+            </select>
+            <input aria-label="Shaxslarni qidirish"
               value={q}
               onChange={(e) => setQ(e.target.value)}
               placeholder="Ism, kasb yoki davrni qidiring..."
               className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground outline-none ring-primary transition focus:ring-2 sm:w-72"
             />
+            </div>
           </div>
 
           <div className="-mx-1 mt-5 flex flex-wrap gap-2.5">
@@ -195,12 +206,12 @@ function Index() {
 
           {visible < filtered.length && (
             <div className="mt-8 flex justify-center">
-              <button
+              <Button variant="outline"
                 onClick={() => setVisible((v) => v + 40)}
                 className="glass rounded-xl px-6 py-3 text-sm font-semibold text-foreground transition hover:border-gold/40 hover:bg-white/10"
               >
-                Yuklash · yana {Math.min(40, filtered.length - visible)} ta
-              </button>
+                Ko‘proq yuklash · yana {Math.min(40, filtered.length - visible)} ta
+              </Button>
             </div>
           )}
 
@@ -248,7 +259,7 @@ function Chip({
   children: React.ReactNode;
 }) {
   return (
-    <button
+    <Button variant="outline"
       onClick={onClick}
       className={
         "rounded-full px-3.5 py-1.5 text-xs font-medium transition " +
@@ -258,6 +269,6 @@ function Chip({
       }
     >
       {children}
-    </button>
+    </Button>
   );
 }

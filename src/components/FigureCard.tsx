@@ -2,18 +2,21 @@ import { Link } from "@tanstack/react-router";
 
 import { CATEGORY_LABELS, type Figure } from "@/lib/figures";
 import { FigureImage } from "@/components/FigureImage";
+import { motion, useReducedMotion } from "framer-motion";
 
 export function FigureCard({ figure }: { figure: Figure }) {
+  const reduced = useReducedMotion();
   return (
+    <motion.div className="h-full" initial={reduced ? false : { opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.35 }}>
     <Link
       to="/figures/$id"
       params={{ id: figure.id }}
-      className="group glass relative flex flex-col overflow-hidden rounded-2xl transition-all hover:-translate-y-1 hover:shadow-elegant hover:border-gold/40 focus:outline-none focus:ring-2 focus:ring-ring"
+      className="group glass figure-card relative flex h-full flex-col overflow-hidden rounded-lg transition-all hover:-translate-y-1 hover:shadow-elegant hover:border-primary/40 focus-visible:ring-2 focus-visible:ring-ring"
     >
       <div className="relative aspect-[4/5] w-full overflow-hidden">
         <FigureImage figure={figure} />
-        <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-3">
-          <span className="inline-block rounded-full bg-white/15 px-2 py-0.5 text-[10px] font-medium text-white backdrop-blur">
+        <div className="absolute inset-x-0 bottom-0 bg-background/80 p-3 backdrop-blur">
+          <span className="inline-block text-[10px] font-medium text-foreground">
             {CATEGORY_LABELS[figure.category]}
           </span>
         </div>
@@ -26,5 +29,6 @@ export function FigureCard({ figure }: { figure: Figure }) {
         <p className="line-clamp-2 text-xs text-muted-foreground">{figure.role}</p>
       </div>
     </Link>
+    </motion.div>
   );
 }

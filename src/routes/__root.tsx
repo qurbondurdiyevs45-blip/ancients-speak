@@ -15,22 +15,25 @@ import { UserGate } from "@/components/UserGate";
 import { ProfileBadge } from "@/components/ProfileBadge";
 import { AlGidAssistant } from "@/components/AlGidAssistant";
 import { FIGURES } from "@/lib/figures";
+import { AccessibilityPanel } from "@/components/AccessibilityPanel";
+import { MotionConfig } from "framer-motion";
+import { Button } from "@/components/ui/button";
 
 function NotFoundComponent() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
         <h1 className="text-7xl font-bold text-foreground">404</h1>
-        <h2 className="mt-4 text-xl font-semibold text-foreground">Page not found</h2>
+        <h2 className="mt-4 text-xl font-semibold text-foreground">Sahifa topilmadi</h2>
         <p className="mt-2 text-sm text-muted-foreground">
-          The page you're looking for doesn't exist or has been moved.
+          Bu sahifa mavjud emas yoki boshqa manzilga ko‘chirilgan.
         </p>
         <div className="mt-6">
           <Link
             to="/"
             className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
           >
-            Go home
+            Bosh sahifa
           </Link>
         </div>
       </div>
@@ -49,26 +52,26 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
         <h1 className="text-xl font-semibold tracking-tight text-foreground">
-          This page didn't load
+          Sahifa yuklanmadi
         </h1>
         <p className="mt-2 text-sm text-muted-foreground">
-          Something went wrong on our end. You can try refreshing or head back home.
+          Sahifani qayta yuklang yoki bosh sahifaga qayting.
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-2">
-          <button
+          <Button
             onClick={() => {
               router.invalidate();
               reset();
             }}
             className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
           >
-            Try again
-          </button>
+            Qayta urinish
+          </Button>
           <a
             href="/"
             className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent"
           >
-            Go home
+            Bosh sahifa
           </a>
         </div>
       </div>
@@ -103,7 +106,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="uz">
       <head>
         <HeadContent />
       </head>
@@ -120,6 +123,7 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <MotionConfig reducedMotion="user">
       <UserGate>
         <div className="fixed right-4 top-4 z-50">
           <ProfileBadge />
@@ -127,7 +131,9 @@ function RootComponent() {
         {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
         <Outlet />
         <AlGidAssistant />
+        <AccessibilityPanel />
       </UserGate>
+      </MotionConfig>
     </QueryClientProvider>
   );
 }

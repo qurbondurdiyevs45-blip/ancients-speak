@@ -1,9 +1,10 @@
 import { useState } from "react";
 
 import { clearUser, useUser } from "@/lib/user";
+import { Button } from "@/components/ui/button";
 
 export function ProfileBadge() {
-  const { name, points } = useUser();
+  const { name, points, streak } = useUser();
   const [open, setOpen] = useState(false);
 
   if (!name) return null;
@@ -11,7 +12,7 @@ export function ProfileBadge() {
 
   return (
     <div className="relative">
-      <button
+      <Button variant="ghost" aria-label="Profil" aria-expanded={open}
         onClick={() => setOpen((o) => !o)}
         className="glass flex items-center gap-2.5 rounded-full px-2 py-1.5 pr-3.5 text-xs text-foreground transition hover:brightness-110"
       >
@@ -22,7 +23,7 @@ export function ProfileBadge() {
         <span className="hidden items-center gap-1 rounded-full bg-white/10 px-2 py-0.5 text-[10px] font-semibold text-gold sm:inline-flex">
           ★ {points}
         </span>
-      </button>
+      </Button>
       {open && (
         <div className="absolute right-0 mt-2 w-56 rounded-2xl glass-strong p-3 shadow-elegant">
           <p className="px-2 text-xs text-muted-foreground">Hisob</p>
@@ -33,7 +34,8 @@ export function ProfileBadge() {
             <span className="text-muted-foreground">Kviz ballari</span>
             <span className="font-bold text-gold">★ {points}</span>
           </div>
-          <button
+          <p className="mt-3 px-2 text-xs text-muted-foreground">Ketma-ket to‘g‘ri javob: {streak}</p>
+          <Button variant="outline"
             onClick={() => {
               clearUser();
               setOpen(false);
@@ -41,7 +43,7 @@ export function ProfileBadge() {
             className="mt-3 w-full rounded-lg border border-white/10 px-3 py-2 text-xs text-muted-foreground transition hover:bg-white/5 hover:text-foreground"
           >
             Chiqish
-          </button>
+          </Button>
         </div>
       )}
     </div>
