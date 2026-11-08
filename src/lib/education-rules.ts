@@ -1,4 +1,4 @@
-export const QUIZ_POINTS = { easy: 10, medium: 20, hard: 30 } as const;
+export const QUIZ_POINTS = { easy: 10, medium: 10, hard: 10 } as const;
 export type Difficulty = keyof typeof QUIZ_POINTS;
 export const ROUND_SIZE = 10;
 export const RAPID_SECONDS = 30;

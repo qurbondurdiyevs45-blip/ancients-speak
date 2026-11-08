@@ -1,0 +1,802 @@
+[
+  {
+    "id": "folk-1",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Ilm — aql chirog‘i."
+    }
+  },
+  {
+    "id": "folk-2",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Bilagi zo‘r birni yiqar, bilimi zo‘r mingni yiqar."
+    }
+  },
+  {
+    "id": "folk-3",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "O‘qigan o‘zar, o‘qimagan to‘zar."
+    }
+  },
+  {
+    "id": "folk-4",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Bilim — kuch."
+    }
+  },
+  {
+    "id": "folk-5",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Yoshlikda olingan bilim — toshga o‘yilgan naqsh."
+    }
+  },
+  {
+    "id": "folk-6",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Ilm olishning erta-kechi yo‘q."
+    }
+  },
+  {
+    "id": "folk-7",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Bilganing bir to‘qqiz, bilmaganing to‘qson to‘qqiz."
+    }
+  },
+  {
+    "id": "folk-8",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "So‘rab o‘rgangan olim, orlanib so‘ramagan o‘ziga zolim."
+    }
+  },
+  {
+    "id": "folk-9",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Ustoz otangdek ulug‘."
+    }
+  },
+  {
+    "id": "folk-10",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Kitob — bilim bulog‘i."
+    }
+  },
+  {
+    "id": "folk-11",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Mehnatning tagi — rohat."
+    }
+  },
+  {
+    "id": "folk-12",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Mehnat qilgan elda aziz."
+    }
+  },
+  {
+    "id": "folk-13",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Ishlagan tishlaydi."
+    }
+  },
+  {
+    "id": "folk-14",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Harakatda — barakat."
+    }
+  },
+  {
+    "id": "folk-15",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Qimirlagan qir oshar."
+    }
+  },
+  {
+    "id": "folk-16",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Yer haydasang kuz hayda, kuz haydamasang yuz hayda."
+    }
+  },
+  {
+    "id": "folk-17",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Yozgi mehnat — qishki rohat."
+    }
+  },
+  {
+    "id": "folk-18",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Bugungi ishni ertaga qo‘yma."
+    }
+  },
+  {
+    "id": "folk-19",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Hunarli kishi xor bo‘lmas."
+    }
+  },
+  {
+    "id": "folk-20",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Yigit kishiga qirq hunar oz."
+    }
+  },
+  {
+    "id": "folk-21",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Hunar — hunardan unar."
+    }
+  },
+  {
+    "id": "folk-22",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Tekin boylik — tekin ketar."
+    }
+  },
+  {
+    "id": "folk-23",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Sabrning tagi — sariq oltin."
+    }
+  },
+  {
+    "id": "folk-24",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Sabr qilgan murodiga yetar."
+    }
+  },
+  {
+    "id": "folk-25",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Shoshgan qiz erga yolchimas."
+    }
+  },
+  {
+    "id": "folk-26",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Yetti o‘lchab, bir kes."
+    }
+  },
+  {
+    "id": "folk-27",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Avval o‘yla, keyin so‘yla."
+    }
+  },
+  {
+    "id": "folk-28",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Oz-oz o‘rganib dono bo‘lur, qatra-qatra yig‘ilib daryo bo‘lur."
+    }
+  },
+  {
+    "id": "folk-29",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Tomchi toshni teshar."
+    }
+  },
+  {
+    "id": "folk-30",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Shoshgan ishga shayton aralashar."
+    }
+  },
+  {
+    "id": "folk-31",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Ona yurting — oltin beshiging."
+    }
+  },
+  {
+    "id": "folk-32",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "O‘zga yurtda sulton bo‘lguncha, o‘z yurtingda ulton bo‘l."
+    }
+  },
+  {
+    "id": "folk-33",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Bulbul chamanni sevar, odam Vatanni."
+    }
+  },
+  {
+    "id": "folk-34",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Vataning tinch — sen tinch."
+    }
+  },
+  {
+    "id": "folk-35",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "O‘z uying — o‘lan to‘shaging."
+    }
+  },
+  {
+    "id": "folk-36",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "El bor bo‘lsa, er xor bo‘lmas."
+    }
+  },
+  {
+    "id": "folk-37",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Elga qo‘shilgan er bo‘lur, eldan ajralgan yer bo‘lur."
+    }
+  },
+  {
+    "id": "folk-38",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Birlashgan o‘zar, birlashmagan to‘zar."
+    }
+  },
+  {
+    "id": "folk-39",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Birlik bor — tiriklik bor."
+    }
+  },
+  {
+    "id": "folk-40",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Ko‘pchilik — kuch."
+    }
+  },
+  {
+    "id": "folk-41",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Do‘st achitib gapirar, dushman kuldirib."
+    }
+  },
+  {
+    "id": "folk-42",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Do‘st boshga kulfat tushganda bilinadi."
+    }
+  },
+  {
+    "id": "folk-43",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Do‘sting uchun zahar yut."
+    }
+  },
+  {
+    "id": "folk-44",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Yaxshi do‘st — jon ozig‘i."
+    }
+  },
+  {
+    "id": "folk-45",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Daraxt ildizi bilan, odam do‘sti bilan."
+    }
+  },
+  {
+    "id": "folk-46",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Do‘stlik — barcha boylikdan afzal."
+    }
+  },
+  {
+    "id": "folk-47",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Yaxshi bilan yursang, yetarsan murodga."
+    }
+  },
+  {
+    "id": "folk-48",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Yaxshi so‘z — jon ozig‘i."
+    }
+  },
+  {
+    "id": "folk-49",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Shirin so‘z — shakardan shirin."
+    }
+  },
+  {
+    "id": "folk-50",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Til — dil kaliti."
+    }
+  },
+  {
+    "id": "folk-51",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Tilga e’tibor — elga e’tibor."
+    }
+  },
+  {
+    "id": "folk-52",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Odob — oltindan qimmat."
+    }
+  },
+  {
+    "id": "folk-53",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Odobli bola elga manzur."
+    }
+  },
+  {
+    "id": "folk-54",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Salom — so‘zning boshi."
+    }
+  },
+  {
+    "id": "folk-55",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Kattaga hurmat, kichikka izzat."
+    }
+  },
+  {
+    "id": "folk-56",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Kamtarga kamol, manmanga zavol."
+    }
+  },
+  {
+    "id": "folk-57",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Kamtarlik ham bir xislat."
+    }
+  },
+  {
+    "id": "folk-58",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Yaxshilik qil, dengizga ot."
+    }
+  },
+  {
+    "id": "folk-59",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Yaxshidan bog‘ qoladi, yomondan dog‘."
+    }
+  },
+  {
+    "id": "folk-60",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Yaxshilik yerda qolmas."
+    }
+  },
+  {
+    "id": "folk-61",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Nima eksang, shuni o‘rasan."
+    }
+  },
+  {
+    "id": "folk-62",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Birovga choh qazima, o‘zing tusharsan."
+    }
+  },
+  {
+    "id": "folk-63",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Egri ozar, to‘g‘ri o‘zar."
+    }
+  },
+  {
+    "id": "folk-64",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "To‘g‘rilik — eng yaxshi yo‘l."
+    }
+  },
+  {
+    "id": "folk-65",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Haqiqat egiladi, bukiladi, lekin sinmaydi."
+    }
+  },
+  {
+    "id": "folk-66",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Yolg‘onning umri qisqa."
+    }
+  },
+  {
+    "id": "folk-67",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Yolg‘onchining rost so‘zi ham yolg‘on."
+    }
+  },
+  {
+    "id": "folk-68",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Oltin olma, duo ol."
+    }
+  },
+  {
+    "id": "folk-69",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Ko‘ngil ko‘ngildan suv ichar."
+    }
+  },
+  {
+    "id": "folk-70",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Mehr ko‘zda."
+    }
+  },
+  {
+    "id": "folk-71",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Ko‘z qo‘rqoq, qo‘l botir."
+    }
+  },
+  {
+    "id": "folk-72",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Botir bir o‘lar, qo‘rqoq ming o‘lar."
+    }
+  },
+  {
+    "id": "folk-73",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Qo‘rqqanga qo‘sha ko‘rinar."
+    }
+  },
+  {
+    "id": "folk-74",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Tavakkal tog‘ yoradi."
+    }
+  },
+  {
+    "id": "folk-75",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Aql yoshda emas, boshda."
+    }
+  },
+  {
+    "id": "folk-76",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Aql aqldan quvvat oladi."
+    }
+  },
+  {
+    "id": "folk-77",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Maslahatli to‘y tarqamas."
+    }
+  },
+  {
+    "id": "folk-78",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Kengashli ish buzilmas."
+    }
+  },
+  {
+    "id": "folk-79",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Yolg‘iz otning changi chiqmas, changi chiqsa ham dong‘i chiqmas."
+    }
+  },
+  {
+    "id": "folk-80",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Bir kishi ariq qazir, ming kishi suv ichar."
+    }
+  },
+  {
+    "id": "folk-81",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Qush uyasida ko‘rganini qiladi."
+    }
+  },
+  {
+    "id": "folk-82",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Olma tagiga olma tushadi."
+    }
+  },
+  {
+    "id": "folk-83",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Bolali uy — bozor, bolasiz uy — mozor."
+    }
+  },
+  {
+    "id": "folk-84",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Ota rozi — Xudo rozi."
+    }
+  },
+  {
+    "id": "folk-85",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Onaning ko‘ngli bolada, bolaning ko‘ngli dalada."
+    }
+  },
+  {
+    "id": "folk-86",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Sog‘ tanda — sog‘lom aql."
+    }
+  },
+  {
+    "id": "folk-87",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Sog‘liq — tuman boylik."
+    }
+  },
+  {
+    "id": "folk-88",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Kasallikni yashirsang, isitmasi oshkor qiladi."
+    }
+  },
+  {
+    "id": "folk-89",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Tozalik — sog‘liq garovi."
+    }
+  },
+  {
+    "id": "folk-90",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Isrof — uvol."
+    }
+  },
+  {
+    "id": "folk-91",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Tejagan — birga birni qo‘shar."
+    }
+  },
+  {
+    "id": "folk-92",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Boriga shukur qil, yo‘g‘iga sabr qil."
+    }
+  },
+  {
+    "id": "folk-93",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Qanoat qorin to‘ydirar."
+    }
+  },
+  {
+    "id": "folk-94",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Hisobli do‘st ayrilmas."
+    }
+  },
+  {
+    "id": "folk-95",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Vaqting ketdi — naqding ketdi."
+    }
+  },
+  {
+    "id": "folk-96",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Daryo suvini bahor toshirar, odam qadrini mehnat oshirar."
+    }
+  },
+  {
+    "id": "folk-97",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Bir kun tuz ichgan joyga qirq kun salom ber."
+    }
+  },
+  {
+    "id": "folk-98",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Qars ikki qo‘ldan chiqadi."
+    }
+  },
+  {
+    "id": "folk-99",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Temirni qizig‘ida bos."
+    }
+  },
+  {
+    "id": "folk-100",
+    "author": "folk",
+    "source": "O‘zbek xalq maqollari",
+    "text": {
+      "uz": "Besh qo‘l barobar emas."
+    }
+  }
+]

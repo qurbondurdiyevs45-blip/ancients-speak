@@ -21,4 +21,6 @@ export type Figure = {
   image?: string;
   voiceHint: string;
   featured?: boolean;
+  categories?: FigureCategory[];
+  recent?: boolean;
 };
