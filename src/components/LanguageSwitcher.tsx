@@ -1,0 +1,3 @@
+import { LANGS, setLang, useLang } from "@/lib/i18n";
+import { Button } from "@/components/ui/button";
+export function LanguageSwitcher(){const lang=useLang();return <div className="shrink-0"><select aria-label="Language / Til" value={lang} onChange={e=>setLang(e.target.value as typeof lang)} className="glass rounded-lg px-2 text-sm sm:hidden">{LANGS.map(l=><option key={l.code} value={l.code}>{l.native}</option>)}</select><div className="glass hidden items-center rounded-lg sm:flex">{LANGS.map(l=><Button key={l.code} size="sm" variant={lang===l.code?"secondary":"ghost"} aria-pressed={lang===l.code} onClick={()=>setLang(l.code)}>{l.native}</Button>)}</div></div>;}

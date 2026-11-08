@@ -2,6 +2,7 @@ import amirTemur from "@/assets/amir-temur.jpg";
 import alKhwarizmi from "@/assets/al-khwarizmi.jpg";
 import ulugbek from "@/assets/ulugbek.jpg";
 import { ADDITIONAL_FIGURES } from "./figures-additions";
+import { eligibleEra, recentEra, roundRobin } from "./catalog-rules";
 
 export type FigureCategory =
   | "uzbek"
@@ -40,6 +41,8 @@ export type Figure = {
   image?: string;
   voiceHint: string; // for nutq uslubi
   featured?: boolean;
+  categories?: FigureCategory[];
+  recent?: boolean;
 };
 
 const f = (
@@ -53,7 +56,7 @@ const f = (
   extra?: Partial<Figure>,
 ): Figure => ({ id, name, era, role, bio, category, voiceHint, ...extra });
 
-export const FIGURES: Figure[] = [
+const RAW_FIGURES: Figure[] = [
   // ====== FEATURED — O‘zbekiston / Markaziy Osiyo ======
   f("amir-temur", "Amir Temur", "1336–1405", "Sohibqiron, davlat arbobi",
     "Temuriylar saltanati asoschisi. Samarqandni jahon poytaxtiga aylantirgan.",
@@ -776,6 +779,9 @@ export const FIGURES: Figure[] = [
     "modern", "rahmdil, intizomli"),
   ...ADDITIONAL_FIGURES,
 ];
+
+const JADIDS = new Set(["cholpon", "fitrat", "qodiriy", "behbudiy", "hamza", "munavvar-qori", "abdulla-avloniy", "avloniy"]);
+export const FIGURES: Figure[] = roundRobin(RAW_FIGURES.filter(f => eligibleEra(f.era)).map(f => ({...f, recent: recentEra(f.era), categories: [...new Set<FigureCategory>([f.category, ...(JADIDS.has(f.id) ? ["jadid", "writer"] as FigureCategory[] : [])])]})));
 
 export function getFigure(id: string): Figure | undefined {
   return FIGURES.find((x) => x.id === id);

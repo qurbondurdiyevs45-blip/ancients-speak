@@ -1,0 +1,758 @@
+[
+  {
+    "id": "1",
+    "difficulty": "easy",
+    "figureId": "amir-temur",
+    "correct": 0,
+    "localized": {
+      "uz": {
+        "prompt": "Amir Temur saltanatining poytaxti qaysi shahar edi?",
+        "options": [
+          "Samarqand",
+          "Buxoro",
+          "Xiva",
+          "Qo‘qon"
+        ],
+        "explanation": "Amir Temur Samarqandni saltanat poytaxti qilgan."
+      }
+    }
+  },
+  {
+    "id": "2",
+    "difficulty": "easy",
+    "figureId": "al-khwarizmi",
+    "correct": 0,
+    "localized": {
+      "uz": {
+        "prompt": "Al-Xorazmiy nomi bilan bog‘liq atama qaysi?",
+        "options": [
+          "Algoritm",
+          "Fotosintez",
+          "Elektron",
+          "Simfoniya"
+        ],
+        "explanation": "Algoritm atamasi Al-Xorazmiy ismining lotincha shaklidan kelib chiqqan."
+      }
+    }
+  },
+  {
+    "id": "3",
+    "difficulty": "easy",
+    "figureId": "ulugbek",
+    "correct": 0,
+    "localized": {
+      "uz": {
+        "prompt": "Mirzo Ulug‘bek qaysi fan bilan mashhur?",
+        "options": [
+          "Astronomiya",
+          "Botanika",
+          "Geologiya",
+          "Kimyo"
+        ],
+        "explanation": "Ulug‘bek astronomik kuzatishlar va yulduzlar jadvali bilan mashhur."
+      }
+    }
+  },
+  {
+    "id": "4",
+    "difficulty": "easy",
+    "figureId": "alisher-navoiy",
+    "correct": 0,
+    "localized": {
+      "uz": {
+        "prompt": "“Xamsa” muallifi kim?",
+        "options": [
+          "Alisher Navoiy",
+          "Abdulla Qodiriy",
+          "Cho‘lpon",
+          "Ogahiy"
+        ],
+        "explanation": "Alisher Navoiy turkiy tilda besh dostondan iborat “Xamsa” yaratgan."
+      }
+    }
+  },
+  {
+    "id": "5",
+    "difficulty": "easy",
+    "figureId": "bobur",
+    "correct": 0,
+    "localized": {
+      "uz": {
+        "prompt": "“Boburnoma”ni kim yozgan?",
+        "options": [
+          "Bobur",
+          "Amir Temur",
+          "Ulug‘bek",
+          "Fitrat"
+        ],
+        "explanation": "Bobur o‘z hayoti va kuzatishlarini “Boburnoma”da bayon qilgan."
+      }
+    }
+  },
+  {
+    "id": "6",
+    "difficulty": "easy",
+    "figureId": "ibn-sino",
+    "correct": 0,
+    "localized": {
+      "uz": {
+        "prompt": "Ibn Sinoning mashhur tibbiy asari qaysi?",
+        "options": [
+          "Tib qonunlari",
+          "Boburnoma",
+          "Xamsa",
+          "Devonu lug‘otit-turk"
+        ],
+        "explanation": "“Tib qonunlari” Ibn Sinoning tibbiyotga oid asosiy asaridir."
+      }
+    }
+  },
+  {
+    "id": "7",
+    "difficulty": "easy",
+    "figureId": "al-beruni",
+    "correct": 0,
+    "localized": {
+      "uz": {
+        "prompt": "Abu Rayhon Beruniy kim edi?",
+        "options": [
+          "Qomusiy olim",
+          "Faqat bastakor",
+          "Faqat haykaltarosh",
+          "Faqat sarkarda"
+        ],
+        "explanation": "Beruniy astronomiya, geografiya va boshqa ko‘plab fanlar bilan shug‘ullangan."
+      }
+    }
+  },
+  {
+    "id": "8",
+    "difficulty": "easy",
+    "figureId": "qodiriy",
+    "correct": 0,
+    "localized": {
+      "uz": {
+        "prompt": "“O‘tkan kunlar” muallifi kim?",
+        "options": [
+          "Abdulla Qodiriy",
+          "Bobur",
+          "Ulug‘bek",
+          "Beruniy"
+        ],
+        "explanation": "Abdulla Qodiriy “O‘tkan kunlar” romanini yozgan."
+      }
+    }
+  },
+  {
+    "id": "9",
+    "difficulty": "easy",
+    "figureId": null,
+    "correct": 0,
+    "localized": {
+      "uz": {
+        "prompt": "Registon maydoni qaysi shaharda?",
+        "options": [
+          "Samarqand",
+          "Xiva",
+          "Toshkent",
+          "Termiz"
+        ],
+        "explanation": "Registon Samarqandning mashhur me’moriy maydonidir."
+      }
+    }
+  },
+  {
+    "id": "10",
+    "difficulty": "easy",
+    "figureId": null,
+    "correct": 0,
+    "localized": {
+      "uz": {
+        "prompt": "Ichan qal’a qaysi shaharda joylashgan?",
+        "options": [
+          "Xiva",
+          "Samarqand",
+          "Qo‘qon",
+          "Andijon"
+        ],
+        "explanation": "Ichan qal’a Xivaning tarixiy ichki shahridir."
+      }
+    }
+  },
+  {
+    "id": "11",
+    "difficulty": "easy",
+    "figureId": null,
+    "correct": 0,
+    "localized": {
+      "uz": {
+        "prompt": "Buyuk Ipak yo‘li nimani bog‘lagan?",
+        "options": [
+          "Sharq va G‘arbni",
+          "Faqat bir qishloqni",
+          "Faqat ikki ko‘lni",
+          "Faqat bir saroyni"
+        ],
+        "explanation": "Ipak yo‘li Sharq va G‘arb o‘rtasidagi savdo va madaniy aloqalar tarmog‘i edi."
+      }
+    }
+  },
+  {
+    "id": "12",
+    "difficulty": "easy",
+    "figureId": "behbudiy",
+    "correct": 0,
+    "localized": {
+      "uz": {
+        "prompt": "Mahmudxo‘ja Behbudiy qaysi harakat namoyandasi?",
+        "options": [
+          "Jadidchilik",
+          "Impressionizm",
+          "Kubizm",
+          "Romantizm"
+        ],
+        "explanation": "Behbudiy jadid ma’rifatparvarlik harakatining yetakchilaridan edi."
+      }
+    }
+  },
+  {
+    "id": "13",
+    "difficulty": "easy",
+    "figureId": "imam-bukhari",
+    "correct": 0,
+    "localized": {
+      "uz": {
+        "prompt": "Imom Buxoriyning mashhur to‘plami qaysi?",
+        "options": [
+          "Sahih al-Buxoriy",
+          "Xamsa",
+          "Boburnoma",
+          "Shohnoma"
+        ],
+        "explanation": "“Sahih al-Buxoriy” Imom Buxoriy tuzgan hadis to‘plamidir."
+      }
+    }
+  },
+  {
+    "id": "14",
+    "difficulty": "easy",
+    "figureId": "mahmud-koshgariy",
+    "correct": 0,
+    "localized": {
+      "uz": {
+        "prompt": "“Devonu lug‘otit-turk” qaysi sohaga oid?",
+        "options": [
+          "Tilshunoslik",
+          "Mexanika",
+          "Kimyo",
+          "Haykaltaroshlik"
+        ],
+        "explanation": "Asar turkiy tillar haqida qimmatli ma’lumotlarni jamlagan."
+      }
+    }
+  },
+  {
+    "id": "15",
+    "difficulty": "medium",
+    "figureId": "amir-temur",
+    "correct": 0,
+    "localized": {
+      "uz": {
+        "prompt": "Amir Temur qaysi yilda tug‘ilgan?",
+        "options": [
+          "1336",
+          "1441",
+          "1483",
+          "980"
+        ],
+        "explanation": "Amir Temur 1336-yilda tug‘ilgan."
+      }
+    }
+  },
+  {
+    "id": "16",
+    "difficulty": "medium",
+    "figureId": "ulugbek",
+    "correct": 0,
+    "localized": {
+      "uz": {
+        "prompt": "Ulug‘bek rasadxonasi qaysi shaharda qurilgan?",
+        "options": [
+          "Samarqand",
+          "Hirot",
+          "Bag‘dod",
+          "Dehli"
+        ],
+        "explanation": "Ulug‘bek o‘z rasadxonasini Samarqandda qurdirgan."
+      }
+    }
+  },
+  {
+    "id": "17",
+    "difficulty": "medium",
+    "figureId": "alisher-navoiy",
+    "correct": 0,
+    "localized": {
+      "uz": {
+        "prompt": "Navoiy qaysi shaharda tug‘ilgan?",
+        "options": [
+          "Hirot",
+          "Xiva",
+          "Toshkent",
+          "Buxoro"
+        ],
+        "explanation": "Alisher Navoiy 1441-yilda Hirotda tug‘ilgan."
+      }
+    }
+  },
+  {
+    "id": "18",
+    "difficulty": "medium",
+    "figureId": "bobur",
+    "correct": 0,
+    "localized": {
+      "uz": {
+        "prompt": "Bobur qaysi shaharda tug‘ilgan?",
+        "options": [
+          "Andijon",
+          "Buxoro",
+          "Xiva",
+          "Termiz"
+        ],
+        "explanation": "Bobur 1483-yilda Andijonda tug‘ilgan."
+      }
+    }
+  },
+  {
+    "id": "19",
+    "difficulty": "medium",
+    "figureId": "al-khwarizmi",
+    "correct": 0,
+    "localized": {
+      "uz": {
+        "prompt": "Al-Xorazmiy qaysi ilmiy markazda faoliyat yuritgan?",
+        "options": [
+          "Bayt ul-hikma",
+          "Registon",
+          "Ichan qal’a",
+          "Ark"
+        ],
+        "explanation": "Al-Xorazmiy Bag‘doddagi Bayt ul-hikma bilan bog‘liq ilmiy muhitda ishlagan."
+      }
+    }
+  },
+  {
+    "id": "20",
+    "difficulty": "medium",
+    "figureId": "al-beruni",
+    "correct": 0,
+    "localized": {
+      "uz": {
+        "prompt": "Beruniyning Hindistonga bag‘ishlangan asari qaysi?",
+        "options": [
+          "Hindiston",
+          "Padarkush",
+          "O‘tkan kunlar",
+          "Xamsa"
+        ],
+        "explanation": "Beruniy “Hindiston” asarida mamlakat madaniyati va bilimlarini tahlil qilgan."
+      }
+    }
+  },
+  {
+    "id": "21",
+    "difficulty": "medium",
+    "figureId": "behbudiy",
+    "correct": 0,
+    "localized": {
+      "uz": {
+        "prompt": "“Padarkush” qanday asar?",
+        "options": [
+          "Drama",
+          "Tibbiy risola",
+          "Astronomik jadval",
+          "Lug‘at"
+        ],
+        "explanation": "Behbudiy “Padarkush” dramasini yozgan."
+      }
+    }
+  },
+  {
+    "id": "22",
+    "difficulty": "medium",
+    "figureId": "cholpon",
+    "correct": 0,
+    "localized": {
+      "uz": {
+        "prompt": "“Kecha va kunduz” muallifi kim?",
+        "options": [
+          "Cho‘lpon",
+          "Navoiy",
+          "Beruniy",
+          "Ibn Sino"
+        ],
+        "explanation": "Cho‘lpon “Kecha va kunduz” romanining muallifidir."
+      }
+    }
+  },
+  {
+    "id": "23",
+    "difficulty": "medium",
+    "figureId": "yusuf-balasaguniy",
+    "correct": 0,
+    "localized": {
+      "uz": {
+        "prompt": "“Qutadg‘u bilig” muallifi kim?",
+        "options": [
+          "Yusuf Xos Hojib",
+          "Mahmud Koshg‘ariy",
+          "Bobur",
+          "Ulug‘bek"
+        ],
+        "explanation": "Yusuf Xos Hojib “Qutadg‘u bilig” dostonini yaratgan."
+      }
+    }
+  },
+  {
+    "id": "24",
+    "difficulty": "medium",
+    "figureId": "ahmad-yassaviy",
+    "correct": 0,
+    "localized": {
+      "uz": {
+        "prompt": "“Devoni hikmat” kimning merosi bilan bog‘liq?",
+        "options": [
+          "Ahmad Yassaviy",
+          "Fitrat",
+          "Qodiriy",
+          "Muqimiy"
+        ],
+        "explanation": "“Devoni hikmat” Ahmad Yassaviy an’anasi bilan bog‘liq."
+      }
+    }
+  },
+  {
+    "id": "25",
+    "difficulty": "medium",
+    "figureId": null,
+    "correct": 0,
+    "localized": {
+      "uz": {
+        "prompt": "Buxorodagi mashhur minora qaysi?",
+        "options": [
+          "Kalon minorasi",
+          "Kalta Minor",
+          "Eyfel minorasi",
+          "Piza minorasi"
+        ],
+        "explanation": "Kalon minorasi Buxorodagi mashhur tarixiy obidadir."
+      }
+    }
+  },
+  {
+    "id": "26",
+    "difficulty": "medium",
+    "figureId": null,
+    "correct": 0,
+    "localized": {
+      "uz": {
+        "prompt": "Kalta Minor qayerda joylashgan?",
+        "options": [
+          "Xiva",
+          "Hirot",
+          "Andijon",
+          "Termiz"
+        ],
+        "explanation": "Kalta Minor Xivaning Ichan qal’a hududida joylashgan."
+      }
+    }
+  },
+  {
+    "id": "27",
+    "difficulty": "medium",
+    "figureId": null,
+    "correct": 0,
+    "localized": {
+      "uz": {
+        "prompt": "Registon ansamblida nechta madrasa bor?",
+        "options": [
+          "Uchta",
+          "Ikkita",
+          "Beshta",
+          "Yettita"
+        ],
+        "explanation": "Registon ansambli Ulug‘bek, Sherdor va Tillakori madrasalaridan iborat."
+      }
+    }
+  },
+  {
+    "id": "28",
+    "difficulty": "medium",
+    "figureId": "jaloliddin-manguberdi",
+    "correct": 0,
+    "localized": {
+      "uz": {
+        "prompt": "Jaloliddin Manguberdi qaysi davlat hukmdori edi?",
+        "options": [
+          "Xorazmshohlar",
+          "Boburiylar",
+          "Temuriylar",
+          "Usmonlilar"
+        ],
+        "explanation": "Jaloliddin Manguberdi Xorazmshohlar davlatining so‘nggi hukmdori edi."
+      }
+    }
+  },
+  {
+    "id": "29",
+    "difficulty": "hard",
+    "figureId": "bobur",
+    "correct": 0,
+    "localized": {
+      "uz": {
+        "prompt": "Bobur Hindistonda saltanatiga qaysi yili asos solgan?",
+        "options": [
+          "1526",
+          "1405",
+          "1441",
+          "1220"
+        ],
+        "explanation": "Bobur 1526-yildagi Panipat g‘alabasidan so‘ng Hindistonda saltanatiga asos soldi."
+      }
+    }
+  },
+  {
+    "id": "30",
+    "difficulty": "hard",
+    "figureId": "alisher-navoiy",
+    "correct": 0,
+    "localized": {
+      "uz": {
+        "prompt": "Navoiy “Xamsa”ni qaysi yillarda yaratgan?",
+        "options": [
+          "1483–1485",
+          "1336–1340",
+          "1526–1530",
+          "1894–1898"
+        ],
+        "explanation": "Navoiy “Xamsa” dostonlarini 1483–1485-yillarda yaratgan."
+      }
+    }
+  },
+  {
+    "id": "31",
+    "difficulty": "hard",
+    "figureId": "alisher-navoiy",
+    "correct": 0,
+    "localized": {
+      "uz": {
+        "prompt": "“Muhokamat ul-lug‘atayn” nimani qiyoslaydi?",
+        "options": [
+          "Turkiy va forsiy tillarni",
+          "Ikki sayyorani",
+          "Ikki shahar devorini",
+          "Ikki tibbiy usulni"
+        ],
+        "explanation": "Asarda Navoiy turkiy va forsiy tillarning imkoniyatlarini qiyoslaydi."
+      }
+    }
+  },
+  {
+    "id": "32",
+    "difficulty": "hard",
+    "figureId": "ulugbek",
+    "correct": 0,
+    "localized": {
+      "uz": {
+        "prompt": "Ulug‘bekning yulduzlar jadvali qanday ataladi?",
+        "options": [
+          "Ziji jadidi Ko‘ragoniy",
+          "Boburnoma",
+          "Qutadg‘u bilig",
+          "Padarkush"
+        ],
+        "explanation": "“Ziji jadidi Ko‘ragoniy” Ulug‘bek ilmiy maktabining astronomik jadvalidir."
+      }
+    }
+  },
+  {
+    "id": "33",
+    "difficulty": "hard",
+    "figureId": "amir-temur",
+    "correct": 0,
+    "localized": {
+      "uz": {
+        "prompt": "Amir Temur qaysi yilda vafot etgan?",
+        "options": [
+          "1405",
+          "1449",
+          "1501",
+          "1530"
+        ],
+        "explanation": "Amir Temur 1405-yilda O‘trorda vafot etgan."
+      }
+    }
+  },
+  {
+    "id": "34",
+    "difficulty": "hard",
+    "figureId": "ibn-sino",
+    "correct": 0,
+    "localized": {
+      "uz": {
+        "prompt": "Ibn Sino yana qanday nom bilan tanilgan?",
+        "options": [
+          "Avitsenna",
+          "Averroes",
+          "Ptolemey",
+          "Evklid"
+        ],
+        "explanation": "Ibn Sinoning lotincha nomi Avicenna — Avitsennadir."
+      }
+    }
+  },
+  {
+    "id": "35",
+    "difficulty": "hard",
+    "figureId": "al-farabi",
+    "correct": 0,
+    "localized": {
+      "uz": {
+        "prompt": "Forobiyga berilgan mashhur unvon qaysi?",
+        "options": [
+          "Ikkinchi muallim",
+          "Sohibqiron",
+          "Xonlar xoni",
+          "Amir ul-umaro"
+        ],
+        "explanation": "Forobiy falsafiy merosi tufayli “Ikkinchi muallim” deb atalgan."
+      }
+    }
+  },
+  {
+    "id": "36",
+    "difficulty": "hard",
+    "figureId": "mahmud-koshgariy",
+    "correct": 0,
+    "localized": {
+      "uz": {
+        "prompt": "“Devonu lug‘otit-turk” qaysi asrda yaratilgan?",
+        "options": [
+          "XI asr",
+          "XV asr",
+          "XIX asr",
+          "VII asr"
+        ],
+        "explanation": "Mahmud Koshg‘ariy asarni XI asrda yaratgan."
+      }
+    }
+  },
+  {
+    "id": "37",
+    "difficulty": "hard",
+    "figureId": "fitrat",
+    "correct": 0,
+    "localized": {
+      "uz": {
+        "prompt": "Abdurauf Fitrat qaysi sohalarda faoliyat yuritgan?",
+        "options": [
+          "Adabiyot va ma’rifat",
+          "Faqat kosmonavtika",
+          "Faqat okeanografiya",
+          "Faqat aviatsiya"
+        ],
+        "explanation": "Fitrat adib, olim va jadid ma’rifatparvari edi."
+      }
+    }
+  },
+  {
+    "id": "38",
+    "difficulty": "hard",
+    "figureId": null,
+    "correct": 0,
+    "localized": {
+      "uz": {
+        "prompt": "Samarqanddagi Go‘ri Amir kimning maqbarasi sifatida mashhur?",
+        "options": [
+          "Amir Temur",
+          "Mahmud Koshg‘ariy",
+          "Qodiriy",
+          "Behbudiy"
+        ],
+        "explanation": "Go‘ri Amir Amir Temur va temuriylar maqbarasidir."
+      }
+    }
+  },
+  {
+    "id": "39",
+    "difficulty": "hard",
+    "figureId": null,
+    "correct": 0,
+    "localized": {
+      "uz": {
+        "prompt": "Sherdor madrasasi qaysi ansamblning bir qismi?",
+        "options": [
+          "Registon",
+          "Ichan qal’a",
+          "Poi Kalon",
+          "Shohi Zinda"
+        ],
+        "explanation": "Sherdor madrasasi Samarqanddagi Registon ansambliga kiradi."
+      }
+    }
+  },
+  {
+    "id": "40",
+    "difficulty": "hard",
+    "figureId": null,
+    "correct": 0,
+    "localized": {
+      "uz": {
+        "prompt": "Ipak yo‘lida ipakdan tashqari nima tarqalgan?",
+        "options": [
+          "Bilim va g‘oyalar",
+          "Faqat tosh",
+          "Faqat muz",
+          "Faqat qum"
+        ],
+        "explanation": "Savdo yo‘llari bilim, din va madaniy g‘oyalar almashinuviga ham xizmat qilgan."
+      }
+    }
+  },
+  {
+    "id": "41",
+    "difficulty": "hard",
+    "figureId": "bahouddin-naqshband",
+    "correct": 0,
+    "localized": {
+      "uz": {
+        "prompt": "Bahouddin Naqshband qaysi tariqat bilan bog‘liq?",
+        "options": [
+          "Naqshbandiya",
+          "Kubizm",
+          "Impressionizm",
+          "Futurizm"
+        ],
+        "explanation": "Naqshbandiya tariqati Bahouddin Naqshband nomi bilan bog‘liq."
+      }
+    }
+  },
+  {
+    "id": "42",
+    "difficulty": "hard",
+    "figureId": "imam-termiziy",
+    "correct": 0,
+    "localized": {
+      "uz": {
+        "prompt": "Imom at-Termiziy qaysi ilm bilan mashhur?",
+        "options": [
+          "Hadis ilmi",
+          "Dengiz navigatsiyasi",
+          "Kvant fizikasi",
+          "Aviatsiya"
+        ],
+        "explanation": "Imom at-Termiziy hadis ilmining yirik allomalaridan edi."
+      }
+    }
+  }
+]

@@ -7,7 +7,7 @@ describe("visitor name", () => {
   test("numbers emoji and links rejected", () => { for (const s of ["Ali7", "Ali😀", "https://ali.uz"]) expect(validName(s)).toBe(false); });
 });
 test("parentheses ignored in initials", () => { expect(figureInitials("Oybek (Muso Toshmuhammad)" )).toBe("O"); expect(figureInitials("Hamza Hakimzoda Niyoziy")).toBe("HN"); });
-test("quiz scoring 10/20/30", () => { expect(QUIZ_POINTS).toEqual({ easy: 10, medium: 20, hard: 30 }); });
+test("every difficulty awards 10 points", () => { expect(QUIZ_POINTS).toEqual({ easy: 10, medium: 10, hard: 10 }); });
 test("10 questions per round", () => expect(ROUND_SIZE).toBe(10));
 test("rapid quiz lasts 30 seconds", () => expect(RAPID_SECONDS).toBe(30));
 test("period filter uses life dates", () => { expect(matchesPeriod("1336–1405", "medieval")).toBe(true); expect(matchesPeriod("e.a. 384–322", "ancient")).toBe(true); expect(matchesPeriod("1815–1852", "modern")).toBe(true); expect(matchesPeriod("1336–1405", "modern")).toBe(false); });
