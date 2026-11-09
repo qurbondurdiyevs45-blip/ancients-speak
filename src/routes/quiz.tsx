@@ -1,191 +1,28 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
-
-import { FIGURES } from "@/lib/figures";
-import { addPoints, useUser } from "@/lib/user";
-
-export const Route = createFileRoute("/quiz")({
-  head: () => ({
-    meta: [
-      { title: "Tarixiy Kviz — Smart-Sayohat: Ancients Speak" },
-      {
-        name: "description",
-        content: `Amir Temur, Al-Xorazmiy, Navoiy va yana ${FIGURES.length} tarixiy shaxs haqida bilimingizni sinab ko‘ring. Ball to‘plang.`,
-      },
-      { property: "og:title", content: "Tarixiy Kviz — Smart-Sayohat" },
-      {
-        property: "og:description",
-        content: "Tarixiy shaxslar haqidagi bilimingizni sinang va ball to‘plang.",
-      },
-    ],
-  }),
-  component: QuizPage,
-});
-
-type Q = { prompt: string; correctId: string; options: string[] };
-
-function shuffle<T>(arr: T[]): T[] {
-  const a = [...arr];
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
-}
-
-function buildQuestions(n = 8): Q[] {
-  const pool = FIGURES.filter((f) => f.role && f.bio);
-  const picked = shuffle(pool).slice(0, n);
-  return picked.map((target) => {
-    const distractors = shuffle(pool.filter((f) => f.id !== target.id))
-      .slice(0, 3)
-      .map((f) => f.name);
-    const opts = shuffle([target.name, ...distractors]);
-    const prompt = `“${target.bio}” (${target.era}) — bu kim?`;
-    return { prompt, correctId: target.name, options: opts };
-  });
-}
-
-function QuizPage() {
-  const { name, points } = useUser();
-  const [seed, setSeed] = useState(0);
-  const questions = useMemo(() => buildQuestions(8), [seed]);
-  const [idx, setIdx] = useState(0);
-  const [picked, setPicked] = useState<string | null>(null);
-  const [score, setScore] = useState(0);
-  const [done, setDone] = useState(false);
-
-  const q = questions[idx];
-
-  function pick(opt: string) {
-    if (picked) return;
-    setPicked(opt);
-    if (opt === q.correctId) {
-      setScore((s) => s + 1);
-      addPoints(10);
-    }
-  }
-
-  function next() {
-    if (idx + 1 >= questions.length) {
-      setDone(true);
-      return;
-    }
-    setIdx((i) => i + 1);
-    setPicked(null);
-  }
-
-  function restart() {
-    setSeed((s) => s + 1);
-    setIdx(0);
-    setPicked(null);
-    setScore(0);
-    setDone(false);
-  }
-
-  return (
-    <div className="min-h-screen bg-background text-foreground aurora-bg">
-      <header className="border-b border-white/10 bg-background/60 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-3xl items-center justify-between px-4 py-3">
-          <Link to="/" className="glass rounded-lg px-2.5 py-1.5 text-xs font-medium">
-            ← Bosh sahifa
-          </Link>
-          <p className="text-xs text-muted-foreground">
-            Sizning ballaringiz: <span className="font-bold text-gold">★ {points}</span>
-          </p>
-        </div>
-      </header>
-
-      <main className="mx-auto max-w-3xl px-4 py-12">
-        <p className="text-xs font-semibold uppercase tracking-widest text-gold">
-          ✦ Tarixiy Kviz
-        </p>
-        <h1 className="mt-2 font-serif text-3xl font-bold sm:text-4xl">
-          Bilimingizni sinab ko‘ring, {name || "sayyoh"}!
-        </h1>
-        <p className="mt-2 text-sm text-muted-foreground">
-          Har bir to‘g‘ri javob uchun <strong className="text-gold">10 ball</strong> olasiz.
-        </p>
-
-        {!done ? (
-          <div className="glass mt-8 rounded-3xl p-6 sm:p-8 shadow-elegant">
-            <div className="flex items-center justify-between text-xs text-muted-foreground">
-              <span>
-                Savol {idx + 1} / {questions.length}
-              </span>
-              <span>Ball: <strong className="text-gold">{score}</strong></span>
-            </div>
-            <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-white/10">
-              <div
-                className="h-full bg-gold-gradient transition-all"
-                style={{ width: `${((idx + (picked ? 1 : 0)) / questions.length) * 100}%` }}
-              />
-            </div>
-
-            <h2 className="mt-6 font-serif text-xl leading-snug text-foreground sm:text-2xl">
-              {q.prompt}
-            </h2>
-
-            <div className="mt-6 grid gap-3">
-              {q.options.map((opt) => {
-                const isCorrect = opt === q.correctId;
-                const isPicked = picked === opt;
-                let cls =
-                  "w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-left text-sm text-foreground transition hover:border-gold/40 hover:bg-white/10";
-                if (picked) {
-                  if (isCorrect)
-                    cls =
-                      "w-full rounded-xl border border-emerald-400/60 bg-emerald-400/10 px-4 py-3 text-left text-sm text-emerald-200";
-                  else if (isPicked)
-                    cls =
-                      "w-full rounded-xl border border-destructive/60 bg-destructive/10 px-4 py-3 text-left text-sm text-destructive";
-                  else
-                    cls =
-                      "w-full rounded-xl border border-white/5 bg-white/5 px-4 py-3 text-left text-sm text-muted-foreground opacity-60";
-                }
-                return (
-                  <button key={opt} onClick={() => pick(opt)} className={cls}>
-                    {opt}
-                  </button>
-                );
-              })}
-            </div>
-
-            {picked && (
-              <button
-                onClick={next}
-                className="mt-6 w-full rounded-xl bg-gold-gradient px-5 py-3 text-sm font-semibold text-primary-foreground shadow-gold transition hover:brightness-110"
-              >
-                {idx + 1 >= questions.length ? "Yakuniy natija" : "Keyingi savol →"}
-              </button>
-            )}
-          </div>
-        ) : (
-          <div className="glass mt-8 rounded-3xl p-8 text-center shadow-elegant">
-            <p className="text-xs uppercase tracking-widest text-gold">Natija</p>
-            <h2 className="mt-2 font-serif text-3xl font-bold">
-              {score} / {questions.length} to‘g‘ri
-            </h2>
-            <p className="mt-2 text-sm text-muted-foreground">
-              Siz <strong className="text-gold">+{score * 10}</strong> ball topdingiz.
-            </p>
-            <div className="mt-6 flex flex-wrap justify-center gap-3">
-              <button
-                onClick={restart}
-                className="rounded-xl bg-gold-gradient px-5 py-3 text-sm font-semibold text-primary-foreground shadow-gold transition hover:brightness-110"
-              >
-                Yana o‘ynash
-              </button>
-              <Link
-                to="/"
-                className="glass rounded-xl px-5 py-3 text-sm font-semibold text-foreground transition hover:bg-white/10"
-              >
-                Bosh sahifaga
-              </Link>
-            </div>
-          </div>
-        )}
-      </main>
-    </div>
-  );
+import { useEffect, useState } from "react";
+import { Share2, RotateCcw, ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useT } from "@/lib/i18n";
+import { addPoints, recordAnswer } from "@/lib/user";
+import { createRound, localQuestion, answerPoints, bestScore, type RoundQuestion } from "@/lib/learning";
+import { type Difficulty } from "@/lib/education-rules";
+import { shareText } from "@/lib/share";
+export const Route=createFileRoute("/quiz")({head:()=>({meta:[{title:"Tarixiy kviz — Smart-Sayohat: Ancients Speak"},{name:"description",content:"O‘zbekiston merosi haqida 10 savol, har to‘g‘ri javobga 10 ball. Uch qiyinlik darajasida bilimingizni sinang."},{property:"og:title",content:"Tarixiy kviz — Smart-Sayohat"},{property:"og:description",content:"Tarixiy bilimlaringizni sinang: 10 savol, 100 ball."},{property:"og:type",content:"website"},{name:"twitter:card",content:"summary_large_image"}]}),component:QuizPage});
+function QuizPage(){
+ const {lang,t}=useT();const [difficulty,setDifficulty]=useState<Difficulty>("easy");const [round,setRound]=useState<RoundQuestion[]>([]);const [index,setIndex]=useState(0);const [picked,setPicked]=useState<number|null>(null);const [score,setScore]=useState(0);const [done,setDone]=useState(false);const [best,setBest]=useState(0);const [share,setShare]=useState("");
+ useEffect(()=>{try{setBest(Number(localStorage.getItem("ss_quiz_best"))||0);}catch{}},[]);
+ function start(){setRound(createRound(difficulty));setIndex(0);setPicked(null);setScore(0);setDone(false);setShare("");}
+ const current=round[index];const q=current ? localQuestion(current.question,lang) : null;
+ function pick(option:number){if(picked!==null || !current || done)return;setPicked(option);const correct=option===current.question.correct;setScore(s=>s+answerPoints(correct));if(correct)addPoints(10);recordAnswer(correct);}
+ function next(){if(index+1===round.length){setDone(true);const updated=bestScore(best,score);setBest(updated);try{localStorage.setItem("ss_quiz_best",String(updated));}catch{}}else{setIndex(index+1);setPicked(null);}}
+ async function shareResult(){try{const result=await shareText(`Smart-Sayohat: Ancients Speak · ${t("quiz")} · ${score}/100\n${window.location.origin}/quiz`);if(result==="copied")setShare(t("copied"));}catch{setShare(t("share_error"));}}
+ return <div className="min-h-screen bg-background text-foreground"><main className="mx-auto max-w-3xl px-4 py-10">
+ <Button asChild variant="outline"><Link to="/">← {t("home")}</Link></Button>
+ <p className="mt-10 text-sm text-gold">✦ {t("quiz")}</p><h1 className="mt-2 font-serif text-3xl font-bold">{t("quiz_title")}</h1><p className="mt-3 text-muted-foreground">{t("quiz_sub")}</p><p className="mt-2 text-sm text-gold">{t("best",{count:best})}</p>
+ {!round.length ? <section className="mt-10 border-t border-border py-8"><h2 className="mb-4 font-serif text-xl">{t("difficulty")}</h2><div className="flex flex-wrap gap-3">{(["easy","medium","hard"] as const).map(level=><Button key={level} variant={difficulty===level?"default":"outline"} aria-pressed={difficulty===level} onClick={()=>setDifficulty(level)}>{t(level)}</Button>)}</div><Button onClick={start} className="mt-8"><ArrowRight/>{t("play")}</Button></section> : done ? <section className="mt-10 border-t border-border py-10 text-center"><h2 className="font-serif text-2xl">{t("result")}</h2><p className="my-6 font-serif text-6xl text-gold">{score} / 100</p><div className="flex flex-wrap justify-center gap-3"><Button onClick={start}><RotateCcw/>{t("again")}</Button><Button variant="outline" onClick={()=>{setRound([]);setDone(false);}}>{t("difficulty")}</Button><Button variant="outline" onClick={shareResult}><Share2/>{t("share")}</Button></div><p role="status" className="mt-3 text-sm">{share}</p></section> : current && q ? <section className="mt-8 border-t border-border py-8">
+ <div className="flex flex-wrap justify-between gap-2 text-sm text-muted-foreground"><span>{t("question",{current:index+1,total:round.length})}</span><span>{t("score",{count:score})}</span></div><progress aria-label={t("question",{current:index+1,total:round.length})} value={index+(picked!==null?1:0)} max={10} className="mt-3 h-2 w-full"/>
+ <h2 className="mt-8 font-serif text-2xl leading-relaxed">{q.prompt}</h2><div className="mt-6 grid gap-3">{current.optionOrder.map((option,position)=><Button key={option} variant="outline" disabled={picked!==null} onClick={()=>pick(option)} className={`h-auto min-h-14 justify-start whitespace-normal px-4 py-4 text-left ${picked!==null && option===current.question.correct ? "border-success bg-success/10 text-foreground" : picked===option ? "border-destructive bg-destructive/10" : ""}`}><span className="mr-3 text-gold">{"ABCD"[position]}</span>{q.options[option]}</Button>)}</div>
+ {picked!==null && <div className="mt-6" aria-live="polite"><p className="text-sm font-semibold text-gold">{t("correct")}: {q.options[current.question.correct]}</p><p className="mt-2 text-sm leading-relaxed text-muted-foreground">{q.explanation}</p>{current.question.figureId && <Button asChild variant="link" className="mt-2 whitespace-normal"><Link to="/figures/$id" params={{id:current.question.figureId}}>{t("talk")}</Link></Button>}<Button onClick={next} className="mt-5 w-full"><ArrowRight/>{index+1===round.length?t("result"):t("next")}</Button></div>}
+ </section>:null}
+ </main></div>;
 }
