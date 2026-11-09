@@ -10,6 +10,8 @@ import {
   FIGURES,
   type FigureCategory,
 } from "@/lib/figures";
+import { useT } from "@/lib/i18n";
+import { localizedFigure } from "@/lib/figure-localization";
 import { useUser } from "@/lib/user";
 import { Button } from "@/components/ui/button";
 import { matchesPeriod, type Period } from "@/lib/education-rules";
@@ -26,7 +28,7 @@ export const Route = createFileRoute("/")({
       { property: "og:title", content: "Smart-Sayohat: Ancients Speak — Virtual Gid" },
       {
         property: "og:description",
-        content: `${FIGURES.length} tarixiy shaxs bilan ularning o‘z ovozida suhbatlashing.`,
+        content: `${FIGURES.length} tarixiy shaxs bilan davri ruhida AI suhbat quring.`,
       },
       { property: "og:url", content: "https://ancients-speak.lovable.app/" },
       { property: "og:type", content: "website" },
@@ -42,6 +44,7 @@ type Filter = typeof ALL | FigureCategory;
 
 function Index() {
   const { name } = useUser();
+  const {lang,t}=useT();
   const [q, setQ] = useState("");
   const [filter, setFilter] = useState<Filter>(ALL);
   const [visible, setVisible] = useState(40);
@@ -53,16 +56,16 @@ function Index() {
   const filtered = useMemo(() => {
     const needle = q.trim().toLowerCase();
     return FIGURES.filter((f) => {
-      if (filter !== ALL && f.category !== filter) return false;
+      if (filter !== ALL && !f.categories?.includes(filter)) return false;
       if (!matchesPeriod(f.era, period)) return false;
       if (!needle) return true;
       return (
         f.name.toLowerCase().includes(needle) ||
-        f.role.toLowerCase().includes(needle) ||
-        f.bio.toLowerCase().includes(needle)
+        localizedFigure(f,lang).role.toLowerCase().includes(needle) ||
+        localizedFigure(f,lang).bio.toLowerCase().includes(needle) || f.era.toLowerCase().includes(needle)
       );
     });
-  }, [q, filter, period]);
+  }, [q, filter, period, lang]);
 
   // Reset pagination when filters change
   useEffect(() => {
@@ -93,39 +96,28 @@ function Index() {
             <span className="h-1.5 w-1.5 rounded-full bg-gold animate-pulse" />
             Smart-Sayohat · Ancients Speak
           </span>
-          <h1 className="mt-5 max-w-3xl font-serif text-4xl font-bold leading-tight text-foreground sm:text-6xl">
-            Salom, <span className="text-gold">{name || "sayyoh"}</span>!<br />
-            Tarixiy shaxslar bilan suhbatlashing.
-          </h1>
-          <p className="mt-5 max-w-2xl text-base text-muted-foreground sm:text-lg">
-            Amir Temur, Al-Xorazmiy, Mirzo Ulug‘bek va boshqa <strong>{FIGURES.length}</strong>{" "}
-            tarixiy siymo bilan ularning o‘z tilida, o‘z ovozida va davri ruhida
-            jonli suhbat quring.
-          </p>
+          <p className="mt-5 text-gold">{t("hello",{name:name || t("traveler")})}</p>
+          <h1 className="mt-2 max-w-3xl font-serif text-4xl font-bold leading-tight sm:text-6xl">Smart-Sayohat: Ancients Speak</h1>
+          <p className="mt-4 max-w-2xl font-serif text-xl">{t("hero_title")}</p>
+          <p className="mt-3 max-w-2xl text-base text-muted-foreground">{t("hero_sub",{count:FIGURES.length})}</p>
           <div className="mt-8 flex flex-wrap gap-3">
             <a
               href="#figures"
               className="rounded-xl bg-gold-gradient px-5 py-3 text-sm font-semibold text-primary-foreground shadow-gold transition hover:brightness-110"
             >
-              Shaxs tanlash →
+              {t("choose")} →
             </a>
             <Link
               to="/quiz"
-              className="glass rounded-xl px-5 py-3 text-sm font-semibold text-foreground transition hover:bg-white/10"
+              className="glass rounded-xl px-5 py-3 text-sm font-semibold text-foreground transition hover:bg-secondary"
             >
-              ✦ Tarixiy Kviz
-            </Link>
-            <Link
-              to="/lessons"
-              className="glass rounded-xl px-5 py-3 text-sm font-semibold text-foreground transition hover:bg-white/10"
-            >
-              📖 Darslar va Mutolaa
+              ✦ {t("quiz")}
             </Link>
             <a
               href="#how"
-              className="rounded-xl border border-white/15 px-5 py-3 text-sm font-medium text-muted-foreground transition hover:bg-white/5 hover:text-foreground"
+              className="rounded-xl border border-border px-5 py-3 text-sm font-medium text-muted-foreground transition hover:bg-secondary/50 hover:text-foreground"
             >
-              Qanday ishlaydi
+              {t("how")}
             </a>
           </div>
 
@@ -140,10 +132,10 @@ function Index() {
         <div className="flex items-end justify-between gap-4">
           <div>
             <p className="text-xs font-semibold uppercase tracking-widest text-gold">
-              Tavsiya etilgan
+              {t("featured")}
             </p>
             <h2 className="mt-1 font-serif text-2xl font-bold sm:text-3xl">
-              Sohibqironlar bilan boshlang
+              {t("featured")}
             </h2>
           </div>
         </div>
@@ -160,42 +152,42 @@ function Index() {
           <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <p className="text-xs font-semibold uppercase tracking-widest text-gold">
-                Katalog · {FIGURES.length} shaxs
+                {t("catalog",{count:FIGURES.length})}
               </p>
               <h2 className="mt-1 font-serif text-2xl font-bold sm:text-3xl">
-                Barcha tarixiy siymolar
+                {t("all_figures")}
               </h2>
             </div>
             <div className="flex flex-col gap-2 sm:flex-row">
-            <select aria-label="Davr" value={period} onChange={(e) => setPeriod(e.target.value as Period)} className="rounded-lg border border-border bg-secondary px-3 text-sm">
-              <option value="all">Barcha davrlar</option><option value="ancient">Qadimgi dunyo</option><option value="medieval">O‘rta asrlar</option><option value="early-modern">1500–1799</option><option value="modern">1800-yildan keyin</option>
+            <select aria-label={t("period")} value={period} onChange={(e) => setPeriod(e.target.value as Period)} className="rounded-lg border border-border bg-secondary px-3 text-sm">
+              <option value="all">{t("period_all")}</option><option value="ancient">{t("period_ancient")}</option><option value="medieval">{t("period_medieval")}</option><option value="early-modern">{t("period_early-modern")}</option><option value="modern">{t("period_modern")}</option>
             </select>
-            <input aria-label="Shaxslarni qidirish"
+            <input aria-label={t("search")}
               value={q}
               onChange={(e) => setQ(e.target.value)}
-              placeholder="Ism, kasb yoki davrni qidiring..."
-              className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground outline-none ring-primary transition focus:ring-2 sm:w-72"
+              placeholder={t("search")}
+              className="w-full rounded-xl border border-border bg-secondary/50 px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground outline-none ring-primary transition focus:ring-2 sm:w-72"
             />
             </div>
           </div>
 
           <div className="-mx-1 mt-5 flex flex-wrap gap-2.5">
             <Chip active={filter === ALL} onClick={() => setFilter(ALL)}>
-              Hammasi
+              {t("all")}
             </Chip>
-            {categories.map(([key, label]) => (
+            {categories.map(([key]) => (
               <Chip
                 key={key}
                 active={filter === key}
                 onClick={() => setFilter(key)}
               >
-                {label}
+                {t(`cat_${key}`)}
               </Chip>
             ))}
           </div>
 
           <p className="mt-5 text-xs text-muted-foreground">
-            {filtered.length} ta shaxs topildi · {shown.length} ko‘rsatildi
+            {t("found",{count:filtered.length,shown:shown.length})}
           </p>
 
           <div className="mt-5 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
@@ -208,16 +200,16 @@ function Index() {
             <div className="mt-8 flex justify-center">
               <Button variant="outline"
                 onClick={() => setVisible((v) => v + 40)}
-                className="glass rounded-xl px-6 py-3 text-sm font-semibold text-foreground transition hover:border-gold/40 hover:bg-white/10"
+                className="glass rounded-xl px-6 py-3 text-sm font-semibold text-foreground transition hover:border-gold/40 hover:bg-secondary"
               >
-                Ko‘proq yuklash · yana {Math.min(40, filtered.length - visible)} ta
+                {t("more")} · {Math.min(40, filtered.length - visible)}
               </Button>
             </div>
           )}
 
           {filtered.length === 0 && (
-            <div className="mt-10 rounded-xl border border-dashed border-white/15 p-10 text-center text-sm text-muted-foreground">
-              Hech narsa topilmadi. Boshqa kalit so‘z bilan urinib ko‘ring.
+            <div className="mt-10 rounded-xl border border-dashed border-border p-10 text-center text-sm text-muted-foreground">
+              {t("empty")}
             </div>
           )}
         </div>
@@ -227,11 +219,11 @@ function Index() {
       <section id="how" className="relative pattern-tile">
         <div className="mx-auto grid max-w-6xl gap-5 px-5 py-16 sm:grid-cols-3">
           {[
-            ["1", "Shaxsni tanlang", `${FIGURES.length} siymo orasidan qiziqqaningizni toping.`],
-            ["2", "Suhbatni boshlang", "AI o‘sha shaxs tilidan, o‘z davri va xarakterida javob beradi — eshitish ham mumkin."],
-            ["3", "Tarixni his eting", "Hikoyalar, ovozli matn va kviz — barchasi bir joyda."],
+            ["1",t("how_1"),t("how_1_sub",{count:FIGURES.length})],
+            ["2",t("how_2"),t("how_2_sub")],
+            ["3",t("how_3"),t("how_3_sub")],
           ].map(([n, title, text]) => (
-            <div key={n} className="glass rounded-2xl p-6">
+            <div key={n} className="p-6">
               <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-gold-gradient font-serif font-bold text-primary-foreground shadow-gold">
                 {n}
               </span>
@@ -242,8 +234,8 @@ function Index() {
         </div>
       </section>
 
-      <footer className="border-t border-white/10 bg-background py-8 text-center text-xs text-muted-foreground">
-        Smart-Sayohat: Ancients Speak · O‘zbekiston merosi × AI
+      <footer className="border-t border-border bg-background py-8 text-center text-xs text-muted-foreground">
+        Smart-Sayohat: Ancients Speak · {t("footer")}
       </footer>
     </div>
   );
@@ -265,7 +257,7 @@ function Chip({
         "rounded-full px-3.5 py-1.5 text-xs font-medium transition " +
         (active
           ? "bg-gold-gradient text-primary-foreground shadow-gold"
-          : "border border-white/10 bg-white/5 text-foreground hover:bg-white/10")
+          : "border border-border bg-secondary/50 text-foreground hover:bg-secondary")
       }
     >
       {children}
