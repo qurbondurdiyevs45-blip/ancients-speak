@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { Accessibility, Contrast, Minus, Plus, Sun, Moon } from "lucide-react";
+import { useT } from "@/lib/i18n";
 import { Button } from "@/components/ui/button";
 
 export function AccessibilityPanel() {
+  const {t}=useT();
   const [open, setOpen] = useState(false);
   const [size, setSize] = useState(16);
   const [light, setLight] = useState(false);
@@ -18,18 +20,18 @@ export function AccessibilityPanel() {
     document.documentElement.style.fontSize = `${size}px`;
     document.documentElement.classList.toggle("light", light);
     document.documentElement.classList.toggle("high-contrast", contrast);
-    localStorage.setItem("ss_accessibility", JSON.stringify({ size, light, contrast }));
+    try {localStorage.setItem("ss_accessibility", JSON.stringify({ size, light, contrast }));}catch{}
   }, [size, light, contrast]);
   return <div className="fixed bottom-4 left-4 z-50">
     {open && <div className="glass-strong mb-2 w-64 rounded-lg p-4 shadow-elegant">
-      <p className="mb-3 font-semibold">Qulaylik</p>
-      <div className="flex items-center justify-between gap-2"><span className="text-sm">Matn o‘lchami</span>
-        <Button size="icon" variant="outline" title="Matnni kichraytirish" aria-label="Matnni kichraytirish" disabled={size <= 16} onClick={() => setSize(size - 1)}><Minus /></Button>
-        <Button size="icon" variant="outline" title="Matnni kattalashtirish" aria-label="Matnni kattalashtirish" disabled={size >= 20} onClick={() => setSize(size + 1)}><Plus /></Button>
+      <p className="mb-3 font-semibold">{t("access")}</p>
+      <div className="flex items-center justify-between gap-2"><span className="text-sm">{t("size")}</span>
+        <Button size="icon" variant="outline" title={t("smaller")} aria-label={t("smaller")} disabled={size <= 16} onClick={() => setSize(size - 1)}><Minus /></Button>
+        <Button size="icon" variant="outline" title={t("larger")} aria-label={t("larger")} disabled={size >= 20} onClick={() => setSize(size + 1)}><Plus /></Button>
       </div>
-      <Button variant="outline" className="mt-3 w-full justify-start" aria-pressed={light} onClick={() => setLight(!light)}>{light ? <Moon /> : <Sun />}{light ? "Qorong‘i rejim" : "Yorug‘ rejim"}</Button>
-      <Button variant="outline" className="mt-2 w-full justify-start" aria-pressed={contrast} onClick={() => setContrast(!contrast)}><Contrast />Yuqori kontrast</Button>
+      <Button variant="outline" className="mt-3 w-full justify-start" aria-pressed={light} onClick={() => setLight(!light)}>{light ? <Moon /> : <Sun />}{light ? t("dark") : t("light")}</Button>
+      <Button variant="outline" className="mt-2 w-full justify-start" aria-pressed={contrast} onClick={() => setContrast(!contrast)}><Contrast />{t("contrast")}</Button>
     </div>}
-    <Button size="icon" variant="outline" aria-label="Qulaylik sozlamalari" title="Qulaylik sozlamalari" aria-expanded={open} onClick={() => setOpen(!open)} className="glass-strong rounded-full"><Accessibility /></Button>
+    <Button size="icon" variant="outline" aria-label={t("access")} title={t("access")} aria-expanded={open} onClick={() => setOpen(!open)} className="glass-strong rounded-full"><Accessibility /></Button>
   </div>;
 }
