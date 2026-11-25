@@ -23,4 +23,4 @@ export const Route = createFileRoute("/api/chat")({server:{handlers:{POST:async(
     else console.error("Chat request failed");
     return Response.json({error:tr("chat_error",lang)},{status:error instanceof GatewayError ? error.httpStatus ?? 502 : 500});
   }
-}}});
+}}}});
